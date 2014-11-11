@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html manifest="">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Uranium</title>
+
+    <!-- The line below must be kept intact for Sencha Cmd to build your application -->
+    <script type="text/javascript">
+        function doesFileExist(urlToFile)
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.open('HEAD', urlToFile, false);
+            xhr.send();
+            return (xhr.status === 404) ? false : true ;
+        }
+        var Ext = Ext || {};
+        Ext.repoDevMode = true;
+        Ext.beforeLoad = function(tags){
+            var theme = location.href.match(/theme=([\w-]+)/),
+                locale = location.href.match(/locale=([\w-]+)/);
+            var language = window.navigator.userLanguage || window.navigator.language;
+            var browserLang = language.substr(0,2);
+            locale = (locale !== browserLang && locale !== null ) ? locale[1] : browserLang;
+            theme  = (theme && theme[1]) || (tags.desktop ? 'uranium' : 'crisp-touch');
+            locale = (doesFileExist(theme + "-" + locale + ".json")) ? locale : 'en';
+            Ext.manifest = theme + "-" + locale;
+            Ext.microloaderTags = tags;
+        };
+    </script>
+    <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
+
+</head>
+<body></body>
+</html>

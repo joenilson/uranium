@@ -1,0 +1,114 @@
+{
+    "name": "Uranium",
+
+    "indexHtmlPath": "index.html",
+
+    "classpath": "${app.dir}/app",
+
+    "overrides": "${app.dir}/overrides,${app.dir}/locale/${app.locale}",
+
+    "framework": "ext",
+
+    "theme": "ext-theme-crisp",
+
+    "requires": [
+        "ext-locale",
+        "sencha-charts"
+    ],
+
+    "sass": {
+        "namespace": "Uranium"
+    },
+
+    "url": null,
+
+    "js": [
+        {
+            "path": "${ext.dir}/build/ext-all.js"
+        },
+        {
+            "path": "app.js",
+            "bundle": true
+        }
+    ],
+
+    "css": [
+        {
+            "path": "bootstrap.css",
+            "bootstrap": true
+        }
+    ],
+
+    "production": {
+    },
+
+    "testing": {
+    },
+
+    "development": {
+    },
+
+    "output": {
+        "base": "${workspace.build.dir}/${build.environment}/${app.name}/${build.id}",
+        "page": "../index.html",
+        "manifest": "../${build.id}.json"
+    },
+
+    "appCache": {
+        "cache": [
+            "index.html"
+        ],
+        "network": [
+            "*"
+        ],
+        "fallback": []
+    },
+
+    "resources": [
+    ],
+
+    "ignore": [
+        "(^|/)CVS(/?$|/.*?$)"
+    ],
+
+    "archivePath": "archive",
+
+    "slicer": {
+        "js": [
+            {
+                "path": "${app.dir}/sass/example/custom.js",
+                "isWidgetManifest": true
+            }
+        ]
+    },
+
+    "id": "3e5ac9b4-df86-4e05-b519-90f7f6440c29",
+
+    "manifest": {
+        "name": "${build.id}.json",
+        "bootstrap": "${build.id}.json"
+    },
+
+    "locales": [
+        "es",
+        "en"
+    ],
+
+    "builds": {
+        "crisp": {
+            "theme": "ext-theme-crisp"
+        },
+        "neptune": {
+            "theme": "ext-theme-neptune"
+        },
+        "crisp-touch": {
+            "theme": "ext-theme-crisp-touch"
+        },
+        "neptune-touch": {
+            "theme": "ext-theme-neptune-touch"
+        },
+        "uranium": {
+            "theme": "uranium-responsive-theme"
+        }
+    }
+}

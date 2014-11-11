@@ -1,0 +1,62 @@
+$uranium-header-background-color: #333;
+$uranium-header-text-color: #fff;
+$uranium-header-text-shadow-color: null;
+$uranium-header-use-gradient: true;
+
+@if $theme-name == 'ext-theme-neptune' or $theme-name == 'ext-theme-neptune-touch' {
+    $uranium-header-background-color: #81af34;
+    $uranium-header-text-shadow-color: #4e691f;
+}
+
+@if $theme-name == 'ext-theme-crisp' or $theme-name == 'ext-theme-crisp-touch' {
+    $uranium-header-background-color: #2a3f5d;
+    $uranium-header-use-gradient: false;
+}
+
+@if $theme-name == 'uranium-responsive-theme' or $theme-name == 'uranium-touch-responsive-theme' {
+    $uranium-header-background-color: #1e1f21;
+    $uranium-header-use-gradient: false;
+}
+
+#app-header {
+    background-color: $uranium-header-background-color;
+    @if $uranium-header-use-gradient {
+        @include background-image(linear-gradient(top, lighten($uranium-header-background-color, 5), darken($uranium-header-background-color, 5)));
+    }
+	border-bottom: 1px solid darken($uranium-header-background-color, 15);
+
+    @if $theme-name == 'ext-theme-neptune' {
+        .#{$prefix}nlg & {
+            background-image: url(images/header-bg.png);
+        }
+    }
+}
+
+#app-header-title {
+    padding: 15px 0 10px 0;
+
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    @if $uranium-header-text-shadow-color != null {
+        text-shadow: 0 1px 0 $uranium-header-text-shadow-color;
+    }
+}
+
+#app-header-logo {
+    width: 40px;
+    height: 25px;
+
+    background: url(images/logo.png) no-repeat center 4px;
+}
+
+#theme-switcher-combo-labelEl {
+    color: $uranium-header-text-color;
+    font-weight: bold;
+}
+
+.uranium-theme-switcher {
+    background-image: url(images/options.png);
+    width: 22px;
+    height: 22px;
+}
