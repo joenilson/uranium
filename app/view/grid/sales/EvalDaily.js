@@ -24,20 +24,6 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
     //flex: 1,
     textTitle: 'Daily Evaluation',
     multiColumnSort: true,
-    /*
-    //<example>
-    otherContent: [{
-        type: 'Controller',
-        path: 'app/view/grid/sales/EvalController.js'
-    },{
-        type: 'Store',
-        path: 'app/store/sales/EvalDaily.js'
-    },{
-        type: 'Model',
-        path: 'app/model/sales/EvalDaily.js'
-    }],
-    //</example>
-    */
     controller: 'eval',
 
     features: [{
@@ -58,17 +44,8 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
 
     plugins: [{
         ptype: 'gridfilters'
-    }, {
-        ptype: 'rowexpander',
-
-        // dblclick invokes the row editor
-        expandOnDblClick: false,
-        rowBodyTpl: '<img src="{avatar}" height="100px" style="float:left;margin:0 10px 5px 0"><b>{name}<br></b>{dob:date}'
     }],
 
-    textId: 'Id',
-    textName: 'Name (Filter)',
-    textRating: 'Rating',
     textDateBirth: 'Date of birth',
     textDateJoin: 'Join date',
     textNoticePeriod: 'Notice<br>period',
@@ -78,10 +55,16 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
     textIllness: 'Illness',
     textHolidays: 'Holidays',
     textHoldayAllowance: 'Holday Allowance',
-    textSalary: 'Sales',
 
+    textToolAdd: 'First Eval',
+    textToolEval: 'Survey',
+    textToolClose: 'Close Window',
+
+    textId: 'Id',
+    textName: 'Name (Filter)',
+    textRating: 'Rating',
+    textHierachy: 'Hierachy',
     textDate: 'Eval Date',
-    //textName: 'Name (Filter)',
     textPunctuality: 'Punctuality',
     textAppearance:'Appearance',
     textVisitCustomers: 'Visit<br>Customers',
@@ -89,7 +72,10 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
     textProductExpired: 'Product<br>Expired',
     textWrongOrder: 'Wrong<br>Order',
     textContaminated: 'Contaminated<br>Fridge',
-    //textRating: 'Rating',
+    textSales: 'AVG Sales',
+
+    titleFirstEval: 'First Evaluation',
+    titleSurvey: 'Survey',
 
     initComponent: function()
     {
@@ -100,21 +86,19 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
         {
             type: 'plus',
             scope: this,
-            handler: function(){
-                console.log(this);
-                //me.destroy();
-            }
+            tooltip: this.textToolAdd,
+            name: 'first',
+            handler: this.createEval
         },{
-            type: 'button',
-            glyph: '128196',
+            type: 'eval',
             scope: this,
-            handler: function(){
-                console.log(this);
-                //me.destroy();
-            }
+            tooltip: this.textToolEval,
+            name: 'eval',
+            handler: this.createEval
         },{
             type: 'close',
             scope: this,
+            tooltip: this.textToolClose,
             handler: function(){
                 me.destroy();
             }
@@ -167,24 +151,9 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
                 xtype: 'sparklineline'
             }
         },
-        /*
         {
-            text: this.textDateBirth,
-            dataIndex: 'dob',
-            xtype: 'datecolumn',
-            groupable: false,
-            width: 115,
-            filter: {
-
-            },
-            editor: {
-                xtype: 'datefield'
-            }
-        },
-        */
-        {
-            text: this.textDateJoin,
-            dataIndex: 'joinDate',
+            text: this.textDate,
+            dataIndex: 'eval_date',
             xtype: 'datecolumn',
             groupable: false,
             width: 120,
@@ -195,97 +164,56 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
                 xtype: 'datefield'
             }
         }, {
-            text: this.textNoticePeriod,
-            dataIndex: 'noticePeriod',
+            text: this.textPunctuality,
+            dataIndex: 'punctuality',
             groupable: false,
-            width: 115,
-            filter: {
-                type: 'list'
-            },
-            editor: {
-                xtype: 'combobox',
-                initComponent: function() {
-                    this.store = this.column.up('tablepanel').store.collect(this.column.dataIndex, false, true);
-                    Ext.form.field.ComboBox.prototype.initComponent.apply(this, arguments);
-                }
-            }
+            width: 115
         }, {
-            text: this.textEmailAddress,
-            dataIndex: 'email',
+            text: this.textAppearance,
+            dataIndex: 'appearance',
             width: 200,
-            groupable: false,
-            renderer: function(v) {
-                return '<a href="mailto:' + v + '">' + v + '</a>';
-            },
-            editor: {
-                xtype: 'textfield'
-            },
-            filter: {
-
-            }
+            groupable: false
         }, {
-            text: this.textDepartment,
-            dataIndex: 'department',
+            text: this.textVisitCustomers,
+            dataIndex: 'visit_customers',
+            width: 200,
+            groupable: false
+        }, {
+            text: this.textPosters,
+            dataIndex: 'posters',
+            width: 200,
+            groupable: false
+        }, {
+            text: this.textProductExpired,
+            dataIndex: 'product_expired',
+            width: 200,
+            groupable: false
+        }, {
+            text: this.textWrongOrder,
+            dataIndex: 'wrong_order',
+            width: 200,
+            groupable: false
+        }, {
+            text: this.textContaminated,
+            dataIndex: 'contaminated',
+            width: 200,
+            groupable: false
+        }, {
+            text: this.textHierachy,
+            dataIndex: 'hierachy',
             hidden: true,
             hideable: false,
             filter: {
                 type: 'list'
             }
         }, {
-            text: this.textAbsences,
-            columns: [{
-                text: this.textIllness,
-                dataIndex: 'sickDays',
-                width: 100,
-                groupable: false,
-                summaryType: 'sum',
-                summaryFormatter: 'number("0")',
-                filter: {
-
-                },
-                editor: {
-                    xtype: 'numberfield',
-                    decimalPrecision: 0
-                }
-            }, {
-                text: this.textHolidays,
-                dataIndex: 'holidayDays',
-                // Size column to title text
-                width: null,
-                groupable: false,
-                summaryType: 'sum',
-                summaryFormatter: 'number("0")',
-                filter: {
-
-                },
-                editor: {
-                    xtype: 'numberfield',
-                    decimalPrecision: 0
-                }
-            }, {
-                text: this.textHoldayAllowance,
-                dataIndex: 'holidayAllowance',
-                // Size column to title text
-                width: null,
-                groupable: false,
-                filter: {
-
-                },
-                editor: {
-                    xtype: 'numberfield',
-                    decimalPrecision: 0
-                }
-            }]
-        }, {
-            text: this.textSalary,
+            text: this.textSales,
             width: 155,
             sortable: true,
-            dataIndex: 'salary',
+            dataIndex: 'avg_sales',
             align: 'right',
-            formatter: 'usMoney',
             groupable: false,
             summaryType: 'average',
-            summaryFormatter: 'usMoney',
             filter: {
 
             },
@@ -295,6 +223,34 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
             }
         }];
         this.callParent();
+    },
+
+    createWindow: function(){
+        var window = Ext.create('Ext.window.Window',{
+            height: 300,
+            width: 400,
+            autoScroll: true,
+            bodyPadding: 10,
+            //constrain: true,
+            closable: true
+        });
+        return window;
+    },
+
+    createEval: function(event, item, header, button) {
+        var win = this.createWindow();
+        var actionName = button.name;
+        var content;
+        console.log(actionName);
+        if(actionName === 'first'){
+            win.setTitle(this.titleFirstEval);
+            content = Ext.create('Uranium.view.sales.eval.FirstEvaluation');
+        }else{
+            win.setTitle(this.titleSurvey);
+            content = Ext.create('Uranium.view.sales.eval.Survey');
+        }
+        win.add(content);
+        win.show();
     }
 
 });
