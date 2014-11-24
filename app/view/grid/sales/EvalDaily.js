@@ -12,11 +12,16 @@
  */
 Ext.define('Uranium.view.grid.sales.EvalDaily', {
     extend: 'Ext.grid.Panel',
-    requires: 'Ext.grid.filters.Filters',
+    requires: [
+        'Ext.grid.filters.Filters',
+        'Uranium.view.main.MainModel'
+    ],
     xtype: 'grid-sales-evaldaily',
     store: 'sales.EvalDaily',
     columnLines: true,
-
+    viewModel: {
+        type: 'main'
+    },
     //autoHeight: true,
     width: '100%',
 
@@ -77,12 +82,18 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
     titleFirstEval: 'First Evaluation',
     titleSurvey: 'Survey',
 
+    buttonViewDetails: 'View Details',
+    buttonFirstEval: 'Add First Eval',
+    buttonRouteEvals: 'Add Route Evals',
+
+    employeeId: null,
+
     initComponent: function()
     {
         var me = this;
         this.title = this.textTitle;
-
         this.tools = [
+        /*
         {
             type: 'plus',
             scope: this,
@@ -95,13 +106,35 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
             tooltip: this.textToolEval,
             name: 'eval',
             handler: this.createEval
-        },{
+        },
+        */
+        {
             type: 'close',
             scope: this,
             tooltip: this.textToolClose,
             handler: function(){
                 me.destroy();
             }
+        }];
+
+        this.tbar = ['->', {
+            text: this.buttonViewDetails,
+            iconCls: 'button-view-list',
+            scope: this,
+            handler: this.viewDetails
+        }, {
+            text: this.buttonFirstEval,
+            iconCls: 'button-add',
+            scope: this,
+            name: 'first',
+            handler: this.createEval
+
+        }, {
+            text: this.buttonRouteEvals,
+            iconCls: 'button-form-add',
+            scope: this,
+            name: 'eval',
+            handler: this.createEval
         }];
 
         this.columns = [{
@@ -122,10 +155,10 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
             sortable: true,
             dataIndex: 'name',
             groupable: false,
-            width: 140,
+            width: 280,
             layout: 'hbox',
             locked: true,
-            renderer: 'concatNames',
+            //renderer: 'concatNames',
             editor: {
                 xtype: 'textfield'
             },
@@ -167,36 +200,36 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
             text: this.textPunctuality,
             dataIndex: 'punctuality',
             groupable: false,
-            width: 115
+            width: 100
         }, {
             text: this.textAppearance,
             dataIndex: 'appearance',
-            width: 200,
+            width: 100,
             groupable: false
         }, {
             text: this.textVisitCustomers,
             dataIndex: 'visit_customers',
-            width: 200,
+            width: 100,
             groupable: false
         }, {
             text: this.textPosters,
             dataIndex: 'posters',
-            width: 200,
+            width: 100,
             groupable: false
         }, {
             text: this.textProductExpired,
             dataIndex: 'product_expired',
-            width: 200,
+            width: 100,
             groupable: false
         }, {
             text: this.textWrongOrder,
             dataIndex: 'wrong_order',
-            width: 200,
+            width: 100,
             groupable: false
         }, {
             text: this.textContaminated,
             dataIndex: 'contaminated',
-            width: 200,
+            width: 100,
             groupable: false
         }, {
             text: this.textHierachy,
@@ -222,6 +255,7 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
                 decimalPrecision: 2
             }
         }];
+
         this.callParent();
     },
 
@@ -231,16 +265,20 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
             width: 400,
             autoScroll: true,
             bodyPadding: 10,
-            //constrain: true,
             closable: true
         });
         return window;
     },
 
-    createEval: function(event, item, header, button) {
+    createEval: function(button, event) {
+        var me = this;
         var win = this.createWindow();
         var actionName = button.name;
         var content;
+        var gridSel = this.getSelectionModel().getSelection();
+        var records = gridSel[0].getData();
+        console.log(gridSel[0].getData());
+        console.log(gridSel.employeeNo);
         console.log(actionName);
         if(actionName === 'first'){
             win.setTitle(this.titleFirstEval);

@@ -4,7 +4,6 @@ Ext.define('Uranium.store.Navigation', {
     model: 'Uranium.model.Navigation',
     autoLoad: false,
     storeId: 'navigation',
-
     textRoot: 'Start',
     proxy: {
         type: 'ajax',

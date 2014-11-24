@@ -32,6 +32,10 @@ Ext.define('Uranium.locale.es.view.grid.sales.EvalDaily',{
     textSales: 'Prom. Sales',
 
     titleFirstEval: 'Primera Evaluaci&oacute;n',
-    titleSurvey: 'Evaluaci&oacute;n de Ruta'
+    titleSurvey: 'Evaluaci&oacute;n de Ruta',
+
+    buttonViewDetails: 'Ver Detalles',
+    buttonFirstEval: 'Primera Evaluación',
+    buttonRouteEvals: 'Evaluación de Ruta'
 
 });

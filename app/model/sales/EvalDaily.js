@@ -5,44 +5,29 @@ Ext.define('Uranium.model.sales.EvalDaily', {
     }, {
         name: 'rating'
     }, {
-        name: 'salary',
-        type: 'float'
-    }, {
-        name: 'forename'
+        name: 'firstname'
     }, {
         name: 'surname'
     }, {
+        name: 'lastname'
+    }, {
         name: 'name',
         convert: function(v, rec) {
-            return rec.editing ? v : rec.get('forename') + ' ' + rec.get('surname');
+            return rec.editing ? v : rec.get('firstname') + ' ' + rec.get('surname')+ ' ' + rec.get('lastname');
         }
     }, {
-        name: 'email'
+        name: 'id_position'
     }, {
-        name: 'department'
+        name: 'position'
     }, {
-        name: 'dob',
-        type: 'date',
-        dateFormat: 'Ymd'
+        name: 'id_organization'
     }, {
-        name: 'joinDate',
-        type: 'date',
-        dateFormat: 'Ymd'
+        name: 'organization'
     }, {
-        name: 'noticePeriod'
-    }, {
-        name: 'sickDays',
-        type: 'int'
-    }, {
-        name: 'holidayDays',
-        type: 'int'
-    }, {
-        name: 'holidayAllowance',
-        type: 'int'
-    }, {
-        name: 'avatar'
+        name: 'work'
     }],
     idField: 'employeeNo',
+    idProperty: 'employeeNo',
 
     // Override set to update dependent fields
     set: function(data, value) {
@@ -56,20 +41,21 @@ Ext.define('Uranium.model.sales.EvalDaily', {
         }
 
         // "name" is a calculated field, so update it on edit of "forename" or "surname".
-        if (data.forename || data.surname) {
-            data.name = (data.forename || this.get('forename')) + ' ' + (data.surname || this.get('surname'));
+        if (data.firstname || data.surname || data.lastname) {
+            data.name = (data.firstname || this.get('firstname')) + ' ' + (data.surname || this.get('surname')) + ' ' + (data.lastname || this.get('lastname'));
         }
         // Likewise, update two name fields if whole name gets updated
         else if (data.name) {
             var names = this.convertName(data.name);
-            data.forename = names[0];
+            data.firstname = names[0];
             data.surname = names[1];
+            data.lastname = names[2];
         }
         return this.callParent([data]);
     },
 
     convertName: function(name) {
         var names = /([^\s+]+)(?:\s+(.*))?/.exec(name);
-        return names ? [names[1], names[2]||''] : ['', ''];
+        return names ? [names[0], names[1], names[2]||''] : ['', ''];
     }
 });
