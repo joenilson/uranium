@@ -41,7 +41,7 @@ Ext.define('Uranium.view.Settings',
                     return {
                         text: text,
                         handler: 'onClickButton'
-                    }
+                    };
                 }
                 return {
                     text: text,

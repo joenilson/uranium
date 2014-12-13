@@ -16,8 +16,12 @@ Ext.define("Uranium.view.login.LoginForm",{
 
     controller: 'login',
 
-    url: '/api/user/login',
-
+    url: '/api2/lib/Authentication',
+    jsonSubmit: true,
+    baseParams: {
+        controller: 'Authentication',
+        method: 'passwd'
+    },
     initComponent: function() {
         this.alias = 'widget.loginForm';
         this.items = [{

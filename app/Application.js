@@ -19,7 +19,9 @@ Ext.define('Uranium.Application', {
     ],
 
     controllers: [
+
         'Menu',
+
         'Sales'
     ],
 
@@ -43,18 +45,11 @@ Ext.define('Uranium.Application', {
 
         // Check to see the current value of the localStorage key
         loggedIn = localStorage.getItem("LoggedIn");
-
+        me.setDefaultToken('all');
         // This ternary operator determines the value of the TutorialLoggedIn key.
         // If TutorialLoggedIn isn't true, we display the login window,
         // otherwise, we display the main view
 
-        if(loggedIn){
-            me.setDefaultToken('all');
-            var storeMenu = Ext.create('Uranium.store.Navigation', {
-                storeId: 'navigation'
-            });
-            storeMenu.load({params: { user: 'usuario' } });
-        }
 
         Ext.widget(loggedIn ? 'app-main' : 'login');
     }

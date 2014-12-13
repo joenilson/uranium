@@ -1,38 +1,32 @@
 Ext.define('Uranium.controller.Sales', {
     extend: 'Ext.app.Controller',
-    /*
+    alias: 'controller.sales',
+
     requires: [
         'Uranium.view.*',
-        'Ext.window.*'
+        'Ext.window.*',
+        'Uranium.store.sales.EvalDaily'
     ],
-    */
+    /*
     stores: [
        'sales.EvalDaily'
-    ]
-    /*
+    ],
+    */
     config: {
         control: {
-            'navigation-tree': {
-                selectionchange: 'onTreeNavSelectionChange'
-            },
-            'navigation-breadcrumb breadcrumb': {
-                selectionchange: 'onBreadcrumbNavSelectionChange'
-            },
-            'thumbnails': {
-                itemclick: 'onThumbnailClick',
-                itemdblclick: 'onThumbnailClick'
-            },
-            'tool[regionTool]': {
-                click: 'onSetRegion'
+            'sales-eval': {
+                click: 'onClick'
             }
-        },
-        refs: {
-            viewport: 'viewport',
-            navigationTree: 'navigation-tree',
-            navigationBreadcrumb: 'navigation-breadcrumb',
-            contentPanel: 'contentPanel',
-            descriptionPanel: 'descriptionPanel'
+        }
+    },
+
+    onClick: function(event){
+        console.log('le dio click');
+        console.log(event);
+    },
+    init: function() {
+
+        if(localStorage.getItem('LoggedIn')){
         }
     }
-    */
 });

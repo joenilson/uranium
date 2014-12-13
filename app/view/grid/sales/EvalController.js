@@ -40,7 +40,11 @@ Ext.define('Uranium.view.grid.sales.EvalController', {
     },
 
     init: function() {
+        if(localStorage.getItem('LoggedIn')){
+            Ext.create('Uranium.store.sales.EvalDaily');
+        }
         // RowEditing not appropriate for touch devices
+        /*
         if (!Ext.supports.Touch) {
             // Plugins are instantiated at this time, we must add an instantiated Plugin, not a config
             this.getView().getPlugins().push(Ext.create({
@@ -49,5 +53,6 @@ Ext.define('Uranium.view.grid.sales.EvalController', {
                 autoCancel: false
             }));
         }
+        */
     }
 });

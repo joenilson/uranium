@@ -30,12 +30,22 @@ Ext.define('Uranium.locale.es.view.grid.sales.EvalDaily',{
     textWrongOrder: 'Pedido<br>Incorrecto',
     textContaminated: 'Nevera<br>Contaminada',
     textSales: 'Prom. Sales',
+    buttonRefresh: 'Recargar Listado',
+    buttonAssign: 'Asignar Empleado',
+    buttonRemove: 'Eliminar Asignación',
 
     titleFirstEval: 'Primera Evaluaci&oacute;n',
     titleSurvey: 'Evaluaci&oacute;n de Ruta',
 
     buttonViewDetails: 'Ver Detalles',
     buttonFirstEval: 'Primera Evaluación',
-    buttonRouteEvals: 'Evaluación de Ruta'
+    buttonRouteEvals: 'Evaluación de Ruta',
+
+    textAlertTitle: 'Sin selección',
+    textAlertMsg: 'Por favor seleccione un empleado para procesar...',
+    textActionTitleAdd: 'Asignar Empleado',
+    textActionTitleDel: 'Eliminar Asignación',
+    textActionMsgAdd: 'Desea asignarse este empleado?',
+    textActionMsgDel: 'Desea eliminar esta asignación?'
 
 });

@@ -28,6 +28,10 @@ Ext.define('Uranium.view.main.MainController', {
         if (choice === 'yes') {
             // Remove the localStorage key/value
             localStorage.removeItem('LoggedIn');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('employeeId');
+            localStorage.removeItem('employeeFN');
+            localStorage.removeItem('user_lang');
             // Remove Main View
             this.getView().destroy();
             // Add the Login Window
@@ -111,6 +115,17 @@ Ext.define('Uranium.view.main.MainController', {
     init: function(){
         var me = this;
         loggedIn = localStorage.getItem("LoggedIn");
+        //console.log('Aqui si');
+        //console.log(loggedIn);
+        if(loggedIn){
+            //console.log('loading store...');
+
+            var storeMenu = Ext.create('Uranium.store.Navigation', {
+                storeId: 'navigation'
+            });
+
+        }
+
         Ext.tip.QuickTipManager.init();
         Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
     }

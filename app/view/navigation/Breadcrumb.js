@@ -22,7 +22,9 @@ Ext.define('Uranium.view.navigation.Breadcrumb', {
             reference: 'toolbar',
             selection: this.getSelection(),
             flex: 1,
+
             store: Ext.StoreMgr.get('navigation')
+
         }];
         this.callParent();
         this._breadcrumbBar = this.items.getAt(1);

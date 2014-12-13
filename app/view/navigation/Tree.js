@@ -50,7 +50,9 @@ Ext.define('Uranium.view.navigation.Tree', {
                     click: 'showBreadcrumbNav'
                 }
             }],
+
             store: Ext.StoreMgr.get('navigation'),
+
             dockedItems : [
                 {
                     xtype: 'textfield',

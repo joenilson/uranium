@@ -50,6 +50,11 @@ $uranium-header-use-gradient: true;
     background: url(images/logo.png) no-repeat center 4px;
 }
 
+#app-header-username {
+    color: #fff;
+    font-size: 12px;
+}
+
 #theme-switcher-combo-labelEl {
     color: $uranium-header-text-color;
     font-weight: bold;

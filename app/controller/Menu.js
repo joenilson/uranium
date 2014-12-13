@@ -4,6 +4,11 @@ Ext.define('Uranium.controller.Menu', {
         'Uranium.view.*',
         'Ext.window.*'
     ],
+    /*
+    stores: [
+        'Uranium.store.Navigation'
+    ],
+    */
     config: {
         control: {
             'navigation-tree': {
@@ -36,39 +41,62 @@ Ext.define('Uranium.controller.Menu', {
     },
 
     beforeHandleRoute: function(id, action) {
-        var me = this,
-            node = Ext.StoreMgr.get('navigation').getNodeById(id);
+        //console.log(localStorage.getItem('LoggedIn'));
+        if(localStorage.getItem('LoggedIn')){
+            if(Ext.StoreMgr.get('navigation') === undefined){
+                Ext.create('Uranium.store.Navigation', {storeId: 'navigation'});
+            }
+            //console.log('iniciamos los nodos');
+            //console.log(id);
+            //console.log(action);
+            //console.log(Ext.StoreMgr.get('navigation'));
+            var me = this,
+                node = Ext.StoreMgr.get('navigation').getNodeById(id);
 
-        if (node) {
-            //resume action
-            action.resume();
-        } else {
-            Ext.Msg.alert(
-                'Route Failure',
-                'The view for ' + id + ' could not be found. You will be taken to the application\'s start',
-                function() {
+            //console.log('creamos los nodos');
+            //var node = undefined;
+            //console.log(Ext.StoreMgr.get('navigation').getNodeById('all'));
+            //console.log(id);
+            //console.log(node);
+            if (node) {
+                //resume action
+                //console.log('existe');
+                action.resume();
+            } else {
+                Ext.defer(function(){
                     me.redirectTo(me.getApplication().getDefaultToken());
-                }
-            );
-
-            //stop action
-            action.stop();
+                },200);
+                /*
+                Ext.Msg.alert(
+                    'Route Failure',
+                    'The view for ' + id + ' could not be found. You will be taken to the application\'s start',
+                    function() {
+                        me.redirectTo(me.getApplication().getDefaultToken());
+                    }
+                );
+                */
+                //stop action
+                action.stop();
+            }
         }
     },
 
     handleRoute: function(id) {
+        if(localStorage.getItem('LoggedIn')){
         var me = this,
             navigationTree = me.getNavigationTree(),
             navigationBreadcrumb = me.getNavigationBreadcrumb(),
+
             store = Ext.StoreMgr.get('navigation'),
             node = store.getNodeById(id),
+
             contentPanel = me.getContentPanel(),
             themeName = Ext.themeName,
             hasTree = navigationTree && navigationTree.isVisible(),
             cmp, className, ViewClass, clsProto, thumbnailsStore;
 
         Ext.suspendLayouts();
-        console.log(node);
+        //console.log(node);
         if (node.isLeaf()) {
             contentPanel.removeAll(true);
             if (hasTree) {
@@ -77,11 +105,11 @@ Ext.define('Uranium.controller.Menu', {
             } else {
                 navigationBreadcrumb.setSelection(node);
             }
-            console.log(id);
+            //console.log(id);
             className = Ext.ClassManager.getNameByAlias('widget.' + id);
-            console.log(className);
+            //console.log(className);
             ViewClass = Ext.ClassManager.get(className);
-            console.log(ViewClass);
+            //console.log(ViewClass);
             clsProto = ViewClass.prototype;
 
             if (clsProto.themes) {
@@ -132,6 +160,7 @@ Ext.define('Uranium.controller.Menu', {
             this.updateTitle(node);
             Ext.resumeLayouts(true);
 
+        }
         }
     },
 

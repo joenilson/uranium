@@ -1,9 +1,9 @@
-Ext.define('Uranium.store.sales.EvalDaily', {
+Ext.define('Uranium.store.sales.EvalDailyDetails', {
     extend: 'Ext.data.Store',
-    storeId: 'salesEvalDaily',
-    model: 'Uranium.model.sales.EvalDaily',
 
-    groupField: 'position',
+    model: 'Uranium.model.sales.EvalDailyDetails',
+
+    groupField: 'type_survey',
     proxy: {
         actionMethods: {
             create: 'POST',
@@ -13,11 +13,11 @@ Ext.define('Uranium.store.sales.EvalDaily', {
         },
         paramsAsJson: true,
         type: 'ajax',
-        //url: '/api/sapconnector/empleado',
-        url: '/api2/sap/Employee',
+        //url: '/api/sales/surveys',
+        url: '/api2/lib/sap/hcm/Survey',
         extraParams: {
-            controller: 'sap/hcm/Employee',
-            method: 'hierarchy'
+            controller: 'sap/hcm/Survey',
+            method: 'list'
         },
         reader: {
             type: 'json',

@@ -35,6 +35,10 @@ Ext.define('Uranium.view.Header', {
                 html: '{name}'
             },
             flex: 1
+        },{
+            xtype: 'component',
+            id: 'app-header-username',
+            html: localStorage.getItem('employeeFN')
         }];
 
         if (!Ext.getCmp('options-toolbar')) {
