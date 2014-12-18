@@ -57,7 +57,7 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
     textHierachy: 'Hierachy',
     textDate: 'Last Eval Date',
     textPunctuality: 'Punctuality',
-    textAppearance:'Appearance',
+    textAppearance: 'Appearance',
     textVisitCustomers: 'Visit<br>Customers',
     textPosters: 'Placing<br>Posters',
     textProductExpired: 'Product<br>Expired',
@@ -85,7 +85,7 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
 
     employeeId: null,
 
-    initComponent: function()
+    initComponent: function ()
     {
         var me = this;
         this.title = this.textTitle;
