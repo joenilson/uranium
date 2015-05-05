@@ -2,21 +2,9 @@ Ext.define('Uranium.store.Navigation', {
     extend: 'Ext.data.TreeStore',
     alias: 'store.navigation',
     model: 'Uranium.model.Navigation',
-    autoLoad: true,
+    autoLoad: false,
     storeId: 'navigation',
     textRoot: 'Start',
-
-    /*
-    initComponent: function(){
-        var me = this;
-        root= {
-            text: this.textRoot,
-            id: 'all',
-            expanded: true
-        };
-        this.callParent();
-    },
-    */
 
     constructor: function (config) {
         var me = this;
@@ -35,7 +23,8 @@ Ext.define('Uranium.store.Navigation', {
                     params: {
                         component: 'treestore',
                         id: localStorage.getItem("userId"),
-                        locale: localStorage.getItem("user_lang")
+                        locale: localStorage.getItem("user_lang"),
+                        system: localStorage.getItem("systemId")
                     }
                 },
                 type: 'ajax',

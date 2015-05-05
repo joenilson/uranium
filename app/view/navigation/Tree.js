@@ -2,7 +2,7 @@ Ext.define('Uranium.view.navigation.Tree', {
     extend: 'Ext.tree.Panel',
 
     xtype: 'navigation-tree',
-
+    id: 'navigation-tree',
     rootVisible: false,
     lines: false,
     useArrows: true,

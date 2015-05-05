@@ -1,0 +1,8 @@
+{
+    "author": "Joe Nilson <joenilson@gmail.com>",
+    "systems": [ 
+        { "id": "1000", "name": "Industrias San Miguel del Caribe S.A." },
+        { "id": "2000", "name": "Inversiones Anamudi SRL" },
+        { "id": "3000", "name": "Industrias San Miguel USA CORP"}
+    ]
+}

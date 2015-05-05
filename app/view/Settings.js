@@ -36,7 +36,7 @@ Ext.define('Uranium.view.Settings',
             function makeItem(value, text, paramName) {
                 paramName = paramName || "theme";
 
-                var checked = value === (paramName == "theme" ? theme : locale);
+                var checked = value === (paramName === "theme" ? theme : locale);
                 if(paramName === "logout"){
                     return {
                         text: text,
@@ -45,11 +45,11 @@ Ext.define('Uranium.view.Settings',
                 }
                 return {
                     text: text,
-                    group: (paramName == 'theme' ? 'themegroup' : 'localegroup'),
+                    group: (paramName === 'theme' ? 'themegroup' : 'localegroup'),
                     checked: checked,
                     handler: function () {
                         if (!checked) {
-                            if(paramName == 'theme') {
+                            if(paramName === 'theme') {
                                 setQueryParam('theme', value);
                             } else {
                                 setQueryParam('locale', value);

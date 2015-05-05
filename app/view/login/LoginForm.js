@@ -6,7 +6,7 @@ Ext.define("Uranium.view.login.LoginForm",{
     passwordField: 'Password',
     loginButton: 'Login',
     warningText: 'Enter any non-blank password',
-
+   
     requires: [
         'Uranium.view.login.LoginController',
         'Ext.form.Panel',
@@ -22,12 +22,23 @@ Ext.define("Uranium.view.login.LoginForm",{
         controller: 'Authentication',
         method: 'passwd'
     },
+    layout: 'form',
+    defaults: {
+        labelWidth: 80,
+        width: 'auto',
+        margin: '0 0 5 0'
+    },
+    bodyPadding: 5,
+    
     initComponent: function() {
+
+        // Create the combo box, attached to the states data store
         this.alias = 'widget.loginForm';
         this.items = [{
             xtype: 'textfield',
             name: 'username',
             fieldLabel: this.usernameField,
+            anchor: '100%',
             allowBlank: false
         }, {
             xtype: 'textfield',

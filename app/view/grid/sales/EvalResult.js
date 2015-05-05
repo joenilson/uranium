@@ -10,20 +10,20 @@
  *
  * The `multiColumnSort` config is used to allow multiple columns to have sorters.
  */
-Ext.define('Uranium.view.grid.sales.EvalDaily', {
+Ext.define('Uranium.view.grid.sales.EvalResult', {
     extend: 'Ext.grid.Panel',
     requires: [
         'Ext.grid.filters.Filters',
         'Uranium.view.main.MainModel'
     ],
-    xtype: 'grid-sales-evaldaily',
+    xtype: 'sales-eval-global-old',
     columnLines: true,
     viewModel: {
         type: 'main'
     },
     width: '100%',
 
-    textTitle: 'Daily Evaluation',
+    textTitle: 'Evaluation Results',
     multiColumnSort: true,
     controller: 'eval',
     features: [{
@@ -110,18 +110,6 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
             handler: function(){
                 me.getStore().reload();
             }
-        }, {
-            text: this.buttonAssign,
-            iconCls: 'button-add',
-            scope: this,
-            name: 'add',
-            handler: this.processPersonal
-        }, {
-            text: this.buttonRemove,
-            iconCls: 'button-remove',
-            scope: this,
-            name: 'del',
-            handler: this.processPersonal
         }, {
             text: this.buttonViewDetails,
             iconCls: 'button-view-list',
@@ -228,7 +216,7 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
 
             }
         }];
-        var store = Ext.create('Uranium.store.sales.EvalDaily');
+        var store = Ext.create('Uranium.store.sales.EvalResult');
         this.store = store;
         var d = new Date();
         var n = d.getMonth();

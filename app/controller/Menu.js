@@ -4,11 +4,7 @@ Ext.define('Uranium.controller.Menu', {
         'Uranium.view.*',
         'Ext.window.*'
     ],
-    /*
-    stores: [
-        'Uranium.store.Navigation'
-    ],
-    */
+
     config: {
         control: {
             'navigation-tree': {
@@ -41,17 +37,16 @@ Ext.define('Uranium.controller.Menu', {
     },
 
     beforeHandleRoute: function(id, action) {
-        //console.log(localStorage.getItem('LoggedIn'));
         if(localStorage.getItem('LoggedIn')){
+            /*
             if(Ext.StoreMgr.get('navigation') === undefined){
-                Ext.create('Uranium.store.Navigation', {storeId: 'navigation'});
+                //Ext.create('Uranium.store.Navigation', {storeId: 'navigation'});
             }
-            //console.log('iniciamos los nodos');
-            //console.log(id);
-            //console.log(action);
-            //console.log(Ext.StoreMgr.get('navigation'));
-            var me = this,
-                node = Ext.StoreMgr.get('navigation').getNodeById(id);
+            */
+
+            var me = this;
+            
+            var node = (localStorage.getItem('systemId'))?Ext.StoreMgr.get('navigation').getNodeById(id):'';
 
             //console.log('creamos los nodos');
             //var node = undefined;
@@ -186,16 +181,6 @@ Ext.define('Uranium.controller.Menu', {
                         panel.setBorderRegion('north');
                     }
                 },
-                /*
-                ,{
-                    text: 'South',
-                    checked: panel.region === 'south',
-                    group: 'mainregion',
-                    handler: function () {
-                        panel.setBorderRegion('south');
-                    }
-                }
-                */
                 {
                     text: 'East',
                     checked: panel.region === 'east',

@@ -166,7 +166,7 @@ Ext.define('Uranium.view.grid.sales.EvalDailyDetails', {
         store.load({ params: {
                 params: {
                     eid: this.employeeId,
-                    system: localStorage.getItem('userSystem'),
+                    system: localStorage.getItem('systemId'),
                     month: (n+1)
                 }
             }

@@ -5,7 +5,7 @@
  */
 Ext.define('Uranium.view.sales.eval.global', {
     extend: 'Ext.panel.Panel',
-    xtype: 'sales-eval-global',
+    xtype: 'sales-eval-globalold',
     width: 660,
     requires: [
         'Ext.layout.container.Table'

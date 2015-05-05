@@ -12,7 +12,6 @@ Ext.define('Uranium.view.login.LoginController', {
                 params: {
                     params: {
                         system: "1000",
-                        user_type: "ldap",
                         username: dataForm.username,
                         password: dataForm.password
                     }
@@ -26,8 +25,6 @@ Ext.define('Uranium.view.login.LoginController', {
                         localStorage.setItem("userId", obj.data.object.id);
                         localStorage.setItem("username", obj.data.object.username);
                         localStorage.setItem("user_lang", obj.data.object.user_lang);
-                        localStorage.setItem("userSystem", obj.data.object.system);
-                        localStorage.setItem("employeeId", obj.data.object.id);
                         localStorage.setItem("employeeFN", obj.data.message);
                         // Remove Login Window
                         loginWindow.destroy();
@@ -51,7 +48,7 @@ Ext.define('Uranium.view.login.LoginController', {
                         //Ext.Msg.alert('Warning', 'Wrong credentials');
                         Ext.Msg.show({
                             title: 'Warning',
-                            message: 'Wrong credentials <br>Credenciales no validas.',
+                            message: 'Wrong credentials.<br>Credenciales no validas.<br>informations d\'identification incorrectes.',
                             buttons: Ext.Msg.OK,
                             icon: Ext.Msg.WARNING
                         });

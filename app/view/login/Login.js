@@ -9,11 +9,12 @@ Ext.define("Uranium.view.login.Login",{
     ],
 
     controller: 'login',
-    bodyPadding: 10,
+    bodyPadding: 0,
     titleText: 'Login Window',
     closable: false,
     autoShow: true,
-
+    layout: 'fit',
+    flex: 1,
     initComponent: function() {
         this.title = this.titleText;
         this.items = [{
@@ -21,5 +22,4 @@ Ext.define("Uranium.view.login.Login",{
         }];
         this.callParent();
     }
-
 });

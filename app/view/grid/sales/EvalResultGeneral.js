@@ -10,21 +10,25 @@
  *
  * The `multiColumnSort` config is used to allow multiple columns to have sorters.
  */
-Ext.define('Uranium.view.grid.sales.EvalDaily', {
-    extend: 'Ext.grid.Panel',
+Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
+    extend: 'Ext.tree.Panel',
     requires: [
         'Ext.grid.filters.Filters',
         'Uranium.view.main.MainModel'
+        
     ],
-    xtype: 'grid-sales-evaldaily',
-    columnLines: true,
+    xtype: 'sales-eval-global',
     viewModel: {
         type: 'main'
     },
     width: '100%',
 
-    textTitle: 'Daily Evaluation',
-    multiColumnSort: true,
+    textTitle: 'Evaluation Results',
+    
+    useArrows: true,
+    rootVisible: false,
+    multiSelect: true,
+    
     controller: 'eval',
     features: [{
         ftype : 'groupingsummary',
@@ -111,18 +115,6 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
                 me.getStore().reload();
             }
         }, {
-            text: this.buttonAssign,
-            iconCls: 'button-add',
-            scope: this,
-            name: 'add',
-            handler: this.processPersonal
-        }, {
-            text: this.buttonRemove,
-            iconCls: 'button-remove',
-            scope: this,
-            name: 'del',
-            handler: this.processPersonal
-        }, {
             text: this.buttonViewDetails,
             iconCls: 'button-view-list',
             scope: this,
@@ -130,6 +122,39 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
         }];
 
         this.columns = [{
+            xtype: 'treecolumn', //this is so we know which column will show the tree
+            text: 'Task',
+            width: 200,
+            sortable: true,
+            dataIndex: 'task',
+            locked: true
+        }, {
+            //we must use the templateheader component so we can use a custom tpl
+            xtype: 'templatecolumn',
+            text: 'Duration',
+            width: 150,
+            sortable: true,
+            dataIndex: 'duration',
+            align: 'center',
+            //add in the custom tpl for the rows
+            tpl: Ext.create('Ext.XTemplate', '{duration:this.formatHours}', {
+                formatHours: function(v) {
+                    if (v < 1) {
+                        return Math.round(v * 60) + ' mins';
+                    } else if (Math.floor(v) !== v) {
+                        var min = v - Math.floor(v);
+                        return Math.floor(v) + 'h ' + Math.round(min * 60) + 'm';
+                    } else {
+                        return v + ' hour' + (v === 1 ? '' : 's');
+                    }
+                }
+            })
+        }, {
+            text: 'Assigned To',
+            width: 150,
+            dataIndex: 'user',
+            sortable: true
+        },{
             xtype: 'rownumberer',
             width: 40,
             sortable: false,
@@ -228,7 +253,7 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
 
             }
         }];
-        var store = Ext.create('Uranium.store.sales.EvalDaily');
+        var store = Ext.create('Uranium.store.sales.EvalResultGeneral');
         this.store = store;
         var d = new Date();
         var n = d.getMonth();

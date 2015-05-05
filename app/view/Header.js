@@ -2,7 +2,6 @@ Ext.define('Uranium.view.Header', {
     extend: 'Ext.Container',
     xtype: 'appHeader',
     id: 'app-header',
-
     viewModel: {
         type: 'main'
     },
@@ -33,8 +32,13 @@ Ext.define('Uranium.view.Header', {
             id: 'app-header-title',
             bind: {
                 html: '{name}'
-            },
-            flex: 1
+            }
+        },{
+            xtype: 'systems-combo'
+        },{
+            xtype: 'component',
+            flex: 1,
+            html: ''
         },{
             xtype: 'component',
             id: 'app-header-username',

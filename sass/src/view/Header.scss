@@ -46,13 +46,27 @@ $uranium-header-use-gradient: true;
 #app-header-logo {
     width: 40px;
     height: 25px;
-
     background: url(images/logo.png) no-repeat center 4px;
+}
+
+#app-header-company-selector {
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #fff;
 }
 
 #app-header-username {
     color: #fff;
     font-size: 12px;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+    float: right;
+}
+
+#settings-btn {
+    margin-left: 3px;
+    margin-right: 3px;    
 }
 
 #theme-switcher-combo-labelEl {
@@ -62,6 +76,6 @@ $uranium-header-use-gradient: true;
 
 .uranium-theme-switcher {
     background-image: url(images/options.png);
-    width: 22px;
+    width: 30px;
     height: 22px;
 }

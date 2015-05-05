@@ -12,7 +12,8 @@ Ext.define('Uranium.view.main.MainController', {
         'Ext.state.CookieProvider',
         'Ext.MessageBox',
         'Ext.tip.QuickTipManager',
-        'Uranium.store.Navigation'
+        'Uranium.store.Navigation',
+        'Uranium.store.Systems'
     ],
 
     alias: 'controller.main',
@@ -32,6 +33,7 @@ Ext.define('Uranium.view.main.MainController', {
             localStorage.removeItem('employeeId');
             localStorage.removeItem('employeeFN');
             localStorage.removeItem('user_lang');
+            localStorage.removeItem('systemId');
             // Remove Main View
             this.getView().destroy();
             // Add the Login Window
@@ -115,15 +117,14 @@ Ext.define('Uranium.view.main.MainController', {
     init: function(){
         var me = this;
         loggedIn = localStorage.getItem("LoggedIn");
-        //console.log('Aqui si');
-        //console.log(loggedIn);
+        
         if(loggedIn){
-            //console.log('loading store...');
-
-            var storeMenu = Ext.create('Uranium.store.Navigation', {
-                storeId: 'navigation'
-            });
-
+            systemId = localStorage.getItem("systemId");
+            if(Ext.StoreMgr.get('navigation') === undefined && systemId !== ''){
+                var comboSystems = Ext.getCmp('app-header-company-selector');
+                comboSystems.setValue(systemId);
+                Ext.create('Uranium.store.Navigation', {storeId: 'navigation'});
+            }
         }
 
         Ext.tip.QuickTipManager.init();

@@ -2,6 +2,43 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/companies.json</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/login/LoginController.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/login/Login.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/controller/Sales.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/locale/es/view/login/LoginForm.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/locale/fr/view/login/Login.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/Header.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/sass/src/view/Header.scss</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/Settings.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/store/Navigation.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/store/Systems.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/model/Systems.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/Systems.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/locale/es/view/Systems.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/locale/es/view/Settings.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/locale/fr/view/Systems.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/ContentPanel.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/Application.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/main/Main.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/main/MainModel.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/main/MainController.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/controller/Menu.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/navigation/Breadcrumb.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/login/LoginForm.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/navigation/Tree.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/sales/sales/order.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/sales/sales/delivery.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/sales/sales/invoice.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/sales/eval/global.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/sales/eval/Survey.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/sales/eval/daily.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/grid/sales/EvalDaily.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/grid/sales/EvalDailyDetails.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/grid/sales/EvalController.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/view/grid/sales/EvalResult.js</file>
+            <file>file:/home/stilgar/senchaWorkspace/uranium/app/store/sales/EvalResult.js</file>
+        </group>
     </open-files>
 </project-private>
