@@ -1,7 +1,9 @@
 Ext.define('Uranium.controller.Sales', {
     extend: 'Ext.app.Controller',
     alias: 'controller.sales',
-
+    /*
+     *  controlador de ventas
+     */
     requires: [
         'Uranium.view.*',
         'Ext.window.*',
