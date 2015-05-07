@@ -21,9 +21,13 @@ Ext.define('Uranium.view.sales.sales.order', {
     /*width: 660,*/
     layout: 'fit',
     requires: [
+        'Uranium.view.sales.sales.OrderController',
         'Uranium.view.sales.sales.orderForm',
         'Uranium.view.sales.sales.orderTab'
     ],
+    
+    controller: 'salesorder',
+    
     flex: 1,
     titleText: 'Sales Orders',
     
@@ -67,12 +71,26 @@ Ext.define('Uranium.view.sales.sales.order', {
         },'->',{
             xtype: 'numberfield',
             emptyText: this.openOrderText,
+            id: 'order-number',
+            name: 'order-number',
             width: 100,
             hideTrigger: true,
             keyNavEnabled: false,
-            mouseWheelEnabled: false
+            mouseWheelEnabled: false,
+            listeners: {
+                change : function(textfield, eo){
+                    if (textfield.value !== '' && textfield.value !== null ) {
+                        Ext.getCmp('button-open-order').setDisabled(false);
+                    }else{
+                        Ext.getCmp('button-open-order').setDisabled(true);
+                    }
+                }
+            }
         },{
-            text: this.buttonOpenOrder
+            text: this.buttonOpenOrder,
+            disabled: true,
+            id: 'button-open-order',
+            handler: 'openOrder'
         },'-',{
             text: this.buttonClearOrder
         },{
