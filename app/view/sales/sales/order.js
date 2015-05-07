@@ -15,21 +15,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 Ext.define('Uranium.view.sales.sales.order', {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.panel.Panel',
     xtype: 'sales-order',
     id: 'sales-order',
     /*width: 660,*/
+    layout: 'fit',
     requires: [
-        'Ext.layout.container.Table'
+        'Uranium.view.sales.sales.orderForm',
+        'Uranium.view.sales.sales.orderTab'
     ],
-    layout: {
-        type: 'table',
-        columns: 3,
-        tdAttrs: { style: 'padding: 10px; vertical-align: top; background-color: #CECECE;' }
-    },
     flex: 1,
-   
     titleText: 'Sales Orders',
+    
+    buttonRemoveSelectedText: 'Remove Selected',
+    buttonOpenOrder: 'Open Order',
+    buttonClearOrder: 'Clear Data',
+    buttonSaveOrder: 'Save',
+    
+    openOrderText: 'order number',
+    
     initComponent: function () {
         var me = this;
         
@@ -48,33 +52,32 @@ Ext.define('Uranium.view.sales.sales.order', {
             }
         }];
         this.items = [
-            {
-                html: 'KitchenSink.DummyText.mediumText 2'
-            },
-            {
-                title: 'Title',
-                html: 'KitchenSink.DummyText.mediumText'
-            },
-            {
-                title: 'Collapsible',
-                collapsible: true,
-                html: 'KitchenSink.DummyText.mediumText'
-            },
-            {
-                title: 'Tools',
-                collapsed: true,
-                collapsible: true,
-                width: 640,
-                html: 'KitchenSink.DummyText.mediumText',
-                tools: [
-                    { type:'pin' },
-                    { type:'refresh' },
-                    { type:'search' },
-                    { type:'save' }
-                ],
-                colspan: 3
-            }
-        ];
+        {
+            layout: 'vbox',
+            items: [{
+                xtype: 'orderform'
+            },{
+                xtype: 'ordertab'
+            }]
+
+        }];
+
+        this.buttons = [{
+            text: this.buttonRemoveSelectedText   
+        },'->',{
+            xtype: 'numberfield',
+            emptyText: this.openOrderText,
+            width: 100,
+            hideTrigger: true,
+            keyNavEnabled: false,
+            mouseWheelEnabled: false
+        },{
+            text: this.buttonOpenOrder
+        },'-',{
+            text: this.buttonClearOrder
+        },{
+            text: this.buttonSaveOrder
+        }];
 
         this.callParent();
     }
