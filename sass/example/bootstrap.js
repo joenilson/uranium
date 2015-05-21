@@ -71,7 +71,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
             node: !isBrowser && (typeof require === 'function'),
             phantom: (typeof phantom !== 'undefined' && phantom.fs)
         },
-        _tags = {},
+        _tags = (Ext.platformTags = {}),
 
         _apply = function (object, config, defaults) {
             if (defaults) {
@@ -85,7 +85,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
             return object;
         },
     /*
-     * The Boot loader class manages Request objects that contain one or
+     * The Boot loader class manages Request objects that contain one or 
      * more individual urls that need to be loaded.  Requests can be performed
      * synchronously or asynchronously, but will always evaluate urls in the
      * order specified on the request object.
@@ -100,7 +100,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
             // or an array of callbacks to call once it loads.
             scripts: {
                 /*
-                 Entry objects
+                 Entry objects 
 
                  'http://foo.com/bar/baz/Thing.js': {
                  done: true,
@@ -138,8 +138,6 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
             Request: Request,
 
             Entry: Entry,
-
-            platformTags: _tags,
 
             /**
              * The defult function that detects various platforms and sets tags
@@ -238,7 +236,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                     ios: (uaTags.iPad || uaTags.iPhone || uaTags.iPod),
                     android: uaTags.Android || uaTags.Silk,
                     blackberry: isBlackberry,
-                    safari: uaTags.Safari && isBlackberry,
+                    safari: uaTags.Safari && !isBlackberry,
                     chrome: uaTags.Chrome,
                     ie10: isIE10,
                     windows: isIE10 || uaTags.Trident,
@@ -292,19 +290,14 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                 return platform;
             },
 
-            getPlatformTags: function () {
-                return Boot.platformTags;
-            },
-
             filterPlatform: function (platform) {
                 platform = [].concat(platform);
-                var tags = Boot.getPlatformTags(),
-                    len, p, tag;
+                var len, p, tag;
 
                 for (len = platform.length, p = 0; p < len; p++) {
                     tag = platform[p];
-                    if (tags.hasOwnProperty(tag)) {
-                        return !!tags[tag];
+                    if (_tags.hasOwnProperty(tag)) {
+                        return !!_tags[tag];
                     }
                 }
                 return false;
@@ -358,7 +351,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                 origin = window.location.origin ||
                     window.location.protocol +
                     "//" +
-                    window.location.hostnaBoot +
+                    window.location.hostname +
                     (window.location.port ? ':' + window.location.port: '');
                 Boot.origin = origin;
 
@@ -659,7 +652,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
             while (!stop) {
                 added = false;
 
-                // iterate the requirements for each index and
+                // iterate the requirements for each index and 
                 // accumulate in the index map
                 for (idx in indexMap) {
                     if (indexMap.hasOwnProperty(idx)) {
@@ -676,9 +669,9 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                             }
                             for (len = reqs.length, i = 0; i < len; i++) {
                                 ridx = reqs[i];
-                                // if we find a requirement that wasn't
-                                // already in the index map,
-                                // set the added flag to indicate we need to
+                                // if we find a requirement that wasn't 
+                                // already in the index map, 
+                                // set the added flag to indicate we need to 
                                 // reprocess
                                 if (!indexMap[ridx]) {
                                     indexMap[ridx] = true;
@@ -789,7 +782,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                 expanded;
 
             if (!me.expanded) {
-                expanded = this.expandUrls(urls);
+                expanded = this.expandUrls(urls, true);
                 me.expanded = true;
             } else {
                 expanded = urls;
@@ -1150,7 +1143,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                 head.removeChild(base);
 
             } else {
-                // Debugger friendly, file names are still shown even though they're
+                // Debugger friendly, file names are still shown even though they're 
                 // eval'ed code. Breakpoints work on both Firebug and Chrome's Web
                 // Inspector.
                 if (url) {
@@ -1176,7 +1169,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                     complete();
                 });
                 me.evaluateLoadElement();
-                // at this point, we need sequential evaluation,
+                // at this point, we need sequential evaluation, 
                 // which means we can't advance the load until
                 // this entry has fully completed
                 return false;
@@ -1217,18 +1210,18 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
             var me = this;
             if (!me.loaded) {
                 if(me.loading) {
-                    // if we're calling back through load and we're loading but haven't
-                    // yet loaded, then we should be in a sequential, cross domain
-                    // load scenario which means we can't continue the load on the
+                    // if we're calling back through load and we're loading but haven't 
+                    // yet loaded, then we should be in a sequential, cross domain 
+                    // load scenario which means we can't continue the load on the 
                     // request until this entry has fully evaluated, which will mean
                     // loaded = evaluated = done = true in one step.  For css files, this
-                    // will happen immediately upon <link> element creation / insertion,
+                    // will happen immediately upon <link> element creation / insertion, 
                     // but <script> elements will set this upon load notification
                     return false;
                 }
                 me.loading = true;
 
-                // for async modes, we have some options
+                // for async modes, we have some options 
                 if (!sync) {
                     // if cross domain, just inject the script tag and let the onload
                     // events drive the progression
@@ -1236,7 +1229,7 @@ Ext.Boot = Ext.Boot || (function (emptyFn) {
                         return me.loadCrossDomain();
                     }
                     // for IE, use the readyStateChange allows us to load scripts in parallel
-                    // but serialize the evaluation by appending the script node to the
+                    // but serialize the evaluation by appending the script node to the 
                     // document
                     else if(!me.isCss() && Boot.hasReadyState) {
                         me.createLoadElement(function () {
@@ -1454,30 +1447,16 @@ Ext.Microloader = Ext.Microloader || (function () {
     var Boot = Ext.Boot,
         _listeners = [],
         _loaded = false,
-        _tags = Boot.platformTags,
+
         Microloader = {
-
-            /**
-             * the global map of tags used
-             */
-            platformTags: _tags,
-
             detectPlatformTags: function () {
                 if (Ext.beforeLoad) {
-                    Ext.beforeLoad(_tags);
+                    Ext.beforeLoad(Ext.platformTags);
                 }
             },
 
             initPlatformTags: function () {
                 Microloader.detectPlatformTags();
-            },
-
-            getPlatformTags: function () {
-                return Boot.platformTags;
-            },
-
-            filterPlatform: function (platform) {
-                return Boot.filterPlatform(platform);
             },
 
             init: function () {

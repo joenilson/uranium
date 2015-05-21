@@ -11,7 +11,7 @@ Ext.define('Uranium.view.login.LoginController', {
             form.submit({
                 params: {
                     params: {
-                        system: "1000",
+                        //system: "1000",
                         username: dataForm.username,
                         password: dataForm.password
                     }

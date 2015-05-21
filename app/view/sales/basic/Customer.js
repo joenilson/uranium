@@ -16,7 +16,6 @@
  */
 Ext.define('Uranium.view.sales.basic.Customer', {
     extend: 'Ext.form.Panel',
-    width: 300,
     xtype: 'sales-customer',
     frame: false,
     titleBasicDataText: 'Basic Data',
@@ -38,6 +37,7 @@ Ext.define('Uranium.view.sales.basic.Customer', {
     searButtonText: 'Search',
     cleaButtonText: 'Clear',
     savButtonText: 'Save',
+    
     labelWidthValue: 140,
     initComponent: function () {
         this.items = [{

@@ -14,19 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.define('Uranium.view.sales.basic.customerStatus',{
-    extend: 'Ext.form.ComboBox',
-    xtype: 'customer-status',
-    name: 'tipoestado',
-    queryMode: 'local',
-    displayField: 'name',
-    valueField: 'abbr',
-    estCombText: 'Estado',    
-    initComponent: function(){
-        this.store = Ext.create('Uranium.store.CustomerStatus');
-        this.fieldLabel = this.estCombText;
-        this.callParent();
-    }    
+Ext.define('Uranium.locale.es.view.sales.basic.Customer', {
+    override: 'Uranium.view.sales.basic.Customer',
+    titleBasicDataText: 'Datos Basicos',
+    titleSalesDataText: 'Datos de Ventas',
+    nifText: 'RNC / Cedula',
+    ncText: 'Nombre Comercial',
+    rcText: 'Razon Social',
+    adText: 'Dirección',
+    conText: 'Contacto',
+    fhText: 'Teléfono',
+    emText: 'Email',
+    calText: 'Calificación',
+    fdiText: 'Fecha de Ingreso',
+    tblText: 'Mesa',
+    rtText: 'Ruta',
+    locText: 'Localidad',
+    contText: 'Pais',
+    costEmptyText: 'Cliente',
+    searButtonText: 'Buscar',
+    cleaButtonText: 'Limpiar',
+    savButtonText: 'Guardar'
 });
-
-

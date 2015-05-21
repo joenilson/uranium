@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 Ext.define('Uranium.view.sales.basic.businessType',{
-    extend: 'Ext.form.ComboBox',//es un componente al cual estas llemando
+    extend: 'Ext.form.ComboBox',
     xtype: 'business-type',
     name: 'tiponegocio',
     queryMode: 'local',
