@@ -18,6 +18,7 @@ Ext.define('Uranium.view.sales.basic.Customer', {
     extend: 'Ext.form.Panel',
     xtype: 'sales-customer',
     frame: false,
+    autoScroll: true,
     titleBasicDataText: 'Basic Data',
     titleSalesDataText: 'Sales Data',
     nifText: 'RNC / Cedula',
@@ -163,7 +164,7 @@ Ext.define('Uranium.view.sales.basic.Customer', {
                             labelAlign: 'top'
                         },
                         items: [{
-                                xtype: 'combo-tiponegocio',
+                                xtype: 'business-type',
                                 width: '40%',
                                 allowBlank: false
                             }, {
@@ -211,7 +212,7 @@ Ext.define('Uranium.view.sales.basic.Customer', {
                                 value: new Date(),
                                 allowBlank: false
                             }, {
-                                xtype: 'combo-estado',
+                                xtype: 'customer-status',
                                 margin: '0 0 0 5',
                                 width: '40%',
                                 allowBlank: false

@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Uranium</title>
-
     <!-- The line below must be kept intact for Sencha Cmd to build your application -->
     <script type="text/javascript">
         function doesFileExist(urlToFile)
@@ -16,6 +15,7 @@
             return (xhr.status === 404) ? false : true ;
         }
         var Ext = Ext || {};
+        Ext.platformTags = Ext.platformTags || {};
         Ext.repoDevMode = true;
         Ext.beforeLoad = function(tags){
             var theme = location.href.match(/theme=([\w-]+)/),

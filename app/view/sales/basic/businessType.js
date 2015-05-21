@@ -23,7 +23,7 @@ Ext.define('Uranium.view.sales.basic.businessType',{
     valueField: 'abbr',
     tdnCombText: 'Type of Business',
     initComponent: function(){
-        this.store = Ext.create('Uranium.store.BusinessType').load();
+        this.store = Ext.create('Uranium.store.sales.BusinessType').load();
         this.fieldLabel = this.tdnCombText;
         this.callParent();
     }      

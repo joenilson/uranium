@@ -10,7 +10,7 @@ Ext.define('Uranium.view.main.MainController', {
 
     requires: [
         'Ext.state.CookieProvider',
-        'Ext.MessageBox',
+        'Ext.window.MessageBox',
         'Ext.tip.QuickTipManager',
         'Uranium.store.Navigation',
         'Uranium.store.Systems'

@@ -23,7 +23,7 @@ Ext.define('Uranium.view.sales.basic.customerStatus',{
     valueField: 'abbr',
     estCombText: 'Estado',    
     initComponent: function(){
-        this.store = Ext.create('Uranium.store.CustomerStatus');
+        this.store = Ext.create('Uranium.store.sales.CustomerStatus');
         this.fieldLabel = this.estCombText;
         this.callParent();
     }    
