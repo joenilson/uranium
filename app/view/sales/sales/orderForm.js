@@ -19,6 +19,7 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
     xtype: 'orderform',
     layout: 'vbox',
     width: '100%',
+    
     customerCodeText: 'Customer',
     customerCodeEmptyText: '0000',
     customerNameText: 'Customer',
@@ -26,6 +27,14 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
     deliveryDateText: 'Delivery Date',
     productCodeText: 'Product',
     productQtyText: 'Quantity',
+    
+    basicDataFieldset: 'Basic Data',
+    orderDetailsFieldset: 'Order Details',
+
+    msgWarningProductTitle: 'Warning',
+    msgWarningProductText: 'Please fill the required fields.<br>Product and Quantity.',
+    
+    bodyPadding: 10,
     customerCodeField: undefined,
     customerNameField: undefined,
     orderDateField: undefined,
@@ -37,9 +46,9 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
     orderDateValue: '',
     deliveryDateValue: '',
     margin: '0 0 5 0',
-    basicDataFieldset: 'Basic Data',
-    orderDetailsFieldset: 'Order Details',
+    
     initComponent: function(){
+        var me = this;
         var TodayValue = new Date();
         var minDateValue = new Date(TodayValue.getTime() - 1 * 24 * 60 * 60 * 1000);
         var TomorrowValue = new Date(TodayValue.getTime() + 1 * 24 * 60 * 60 * 1000);
@@ -50,6 +59,7 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
             emptyText: this.customerCodeEmptyText,
             xtype: 'numberfield',
             name: 'customer',
+            id: 'customer-id',
             anchor: '40%',
             margin: '0 10 0 0',
             allowBlank:false,
@@ -74,6 +84,7 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
             fieldLabel: this.customerCodeText,
             xtype: 'displayfield',
             name: 'customer_name',
+            id: 'customer_name',
             anchor: '100%',
             allowBlank:false,
             value: this.customerNameValue
@@ -84,6 +95,7 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
             fieldLabel: this.orderDateText,
             xtype: 'datefield',
             name: 'order_date',
+            id: 'order_date',
             anchor: '45%',
             allowBlank:false,
             value: (this.orderDateValue === '')?TodayValue:this.orderDateValue,
@@ -99,6 +111,7 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
             fieldLabel: this.deliveryDateText,
             xtype: 'datefield',
             name: 'delivery_date',
+            id: 'delivery_date',
             anchor: '45%',
             allowBlank:false,
             value: (this.deliveryDateValue === '')?TomorrowValue:this.deliveryDateValue,
@@ -115,6 +128,7 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
             fieldLabel: this.productCodeText,
             xtype: 'numberfield',
             name: 'product_code',
+            id: 'product_code',
             width: 180,
             margin: '0 10 0 0',
             allowBlank:false,
@@ -130,6 +144,7 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
             fieldLabel: this.productQtyText,
             xtype: 'numberfield',
             name: 'product_qty',
+            id: 'product_qty',
             width: 180,
             margin: '0 10 0 0',
             decimalPrecision: 2,
@@ -144,9 +159,28 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
             listeners: {
                 keypress : function(textfield, eo){
                     if (eo.getCharCode() === Ext.EventObject.ENTER) {
-                        //enter is pressed call the next buttons handler function here.
-                        console.log(textfield);
-                        
+                        var panelForm = textfield.up('panel').getForm();
+                        var formValues = panelForm.getValues();
+                        var orderDetailsGrid = Ext.getCmp('sales-order-grid');
+                        panelForm.getFields().get('product_code').setValue('');
+                        textfield.setValue('');
+                        panelForm.getFields().get('product_code').focus(true);
+                        if(formValues.product_code !== '' || formValues.product_qty !== ''){
+                            var productGrid = Ext.create('Uranium.model.sales.OrdersDetails',{
+                                id: formValues.product_code+'-'+'S',
+                                code: formValues.product_code,
+                                quantity: formValues.product_qty,
+                                type: 'S'
+                            });
+                            orderDetailsGrid.getStore().insert(0,productGrid);
+                        }else{
+                            Ext.Msg.show({
+                                title: me.msgWarningProductTitle,
+                                message: me.msgWarningProductText,
+                                buttons: Ext.Msg.OK,
+                                icon: Ext.Msg.WARNING
+                            });
+                        }                       
                     }
                 }
             }
@@ -157,11 +191,12 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
             title: this.basicDataFieldset,
             layout: 'anchor',
             defaults: {
-                anchor: '100%'
+                anchor: '100%',
+                flex: 1
             },
             items: [{
                 xtype: 'fieldcontainer',
-                fieldLabel: 'Name',
+                fieldLabel: this.customerCodeText,
                 layout: 'hbox',
                 combineErrors: true,
                 bodyPadding: 5,
@@ -176,6 +211,9 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
                 xtype: 'fieldcontainer',
                 layout: 'hbox',
                 bodyPadding: 5,
+                defaults: {
+                    labelWidth: 180
+                },
                 items: [
                     this.orderDateField,
                     this.deliveryDateField
@@ -185,7 +223,8 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
             xtype: 'fieldset',
             title: this.orderDetailsFieldset,
             layout: 'hbox',
-            defaultS: {
+            bodyPadding: 5,
+            defaults: {
                 labelWidth: 60
             },
             items: [

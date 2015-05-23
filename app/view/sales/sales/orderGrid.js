@@ -21,25 +21,81 @@ Ext.define('Uranium.view.sales.sales.orderGrid', {
         enableTextSelection: true
     },
     selType: 'checkboxmodel',
-    
+    id: 'sales-order-grid',
     productCodeText: 'Code',
     productDescText: 'Product',
     productQtyText: 'Qty',
     productWeightText: 'Weight',
     productTypeText: 'Type',
+    productAmountText: 'Amount',
     titleText: 'Order Details',
+    salesText: 'Sales',
+    freeText: 'Free',
+    removeItemText: 'Remove Item',
+    messageBoxTitle: 'Confirm',
+    messageBoxText: 'Are you sure you want to do that?',
+    
+    selModel: 'cellmodel',
+    plugins: {
+        ptype: 'cellediting',
+        clicksToEdit: 2
+    },
+
     initComponent: function () {
         var me = this;
         me.title = this.titleText;
-        me.columns = [
-            { text: this.productCodeText, dataIndex: 'code', flex: 1 },
-            { text: this.productDescText, dataIndex: 'description', flex: 3 },
-            { text: this.productQtyText, dataIndex: 'code', flex: 1 },
-            { text: this.productWeightText, dataIndex: 'code', flex: 1 },
-            { text: this.productTypeText, dataIndex: 'code', flex: 1 }
-        ];
+        me.store = Ext.create('Uranium.store.sales.OrdersDetails');
         
+        me.columns = [
+            { text: this.productCodeTypeText, dataIndex: 'id', hidden: true },
+            { text: this.productCodeText, dataIndex: 'code', flex: 1 },
+            { text: this.productDescText, dataIndex: 'product', flex: 3 },
+            { text: this.productQtyText, dataIndex: 'quantity', flex: 1 },
+            { text: this.productWeightText, dataIndex: 'weight', flex: 1 },
+            { text: this.productTypeText, dataIndex: 'type', flex: 1,
+                editor: new Ext.form.field.ComboBox({
+                    typeAhead: true,
+                    triggerAction: 'all',
+                    store: [
+                        ['S',me.salesText],
+                        ['F',me.freeText]
+                    ]
+                }) },
+            { text: this.productAmountText, dataIndex: 'amount', flex: 1 },
+            {
+                xtype: 'actioncolumn',
+                width: 30,
+                sortable: false,
+                menuDisabled: true,
+                items: [{
+                    icon: 'resources/images/icons/fam/delete.gif',
+                    tooltip: this.removeItemText,
+                    scope: this,
+                    handler: this.onRemoveClick
+                }]
+            }
+        ];
+        me.listeners = {
+            'edit': this.updateData
+        };
         this.callParent();
+    },
+    onRemoveClick: function(grid, rowIndex){
+        var me = this;
+        Ext.MessageBox.confirm(
+            me.messageBoxTitle, 
+            me.messageBoxText, 
+            function(btn, text) {
+                if(btn === 'yes'){
+                    this.getStore().removeAt(rowIndex);
+                }
+            }, 
+            this);
+    },
+    updateData: function(view, records) {
+        var me = this;
+        records.record.set({id: records.record.data.id+'-'+records.record.data.type});
+        this.getStore().commitChanges();
     }
 });
 
