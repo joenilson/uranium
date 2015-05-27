@@ -21,6 +21,7 @@ Ext.define('Uranium.view.sales.basic.Customer', {
     autoScroll: true,
     titleBasicDataText: 'Basic Data',
     titleSalesDataText: 'Sales Data',
+    titleCreditControlText: 'Credit Control',
     nifText: 'RNC / Cedula',
     ncText: 'Nombre Comercial',
     rcText: 'Razon Social',
@@ -34,11 +35,17 @@ Ext.define('Uranium.view.sales.basic.Customer', {
     rtText: 'Route',
     locText: 'Location',
     contText: 'Country',
+    credText: 'Credit',
+    contphText: 'Contact Phone',
+    concobText: 'Contact Payment',
+    cmtText: 'Credit Amount',
+    pymcText: 'Payment Contact Email',
     costEmptyText: 'Customer',
+    autoText: 'Authorized By',
     searButtonText: 'Search',
     cleaButtonText: 'Clear',
     savButtonText: 'Save',
-    
+    bodyPadding: 10,
     labelWidthValue: 140,
     initComponent: function () {
         this.items = [{
@@ -69,6 +76,9 @@ Ext.define('Uranium.view.sales.basic.Customer', {
                                         if (t.getKey() === t.ENTER) {
                                             console.log('enter pressed');
                                         }
+                                    },
+                                    afterrender: function (field) {
+                                        field.focus();
                                     }
                                 }
                             }
@@ -268,11 +278,112 @@ Ext.define('Uranium.view.sales.basic.Customer', {
                                 allowBlank: false
                             }]
                     }]
+            }, {
+                xtype: 'fieldset',
+                title: this.titleCreditControlText,
+                defaults: {
+                    labelStyle: 'font-weight: bold',
+                    labelAlign: 'top',
+                    labelWidth: this.labelWidthValue
+                },
+                items: [{
+                        xtype: 'fieldcontainer',
+                        layout: 'hbox',
+                        items: [{
+                                labelStyle: 'font-weight: bold',
+                                labelWidth: 60,
+                                xtype: 'fieldcontainer',
+                                fieldLabel: this.credText,
+                                layout: 'hbox',
+                                items: [{
+                                        xtype: 'radiofield',
+                                        name: 'diascredito',
+                                        boxLabel: 'Yes',
+                                        inputValue: 'y'
+                                    }, {
+                                        xtype: 'splitter'
+                                    }, {
+                                        xtype: 'radiofield',
+                                        name: 'diascredito',
+                                        boxLabel: 'No',
+                                        inputValue: 'n',
+                                        margin: '0 10 0 0'
+                                    }, {
+                                        xtype: 'displayfield',
+                                        width: 30,
+                                        margin: '0 0 0 0'
+                                    }, {
+                                        labelStyle: 'font-weight: bold',
+                                        xtype: 'credit-days',
+                                        width: 170
+                                    }, {
+                                        xtype: 'displayfield',
+                                        width: 30,
+                                        margin: '0 0 0 0'
+                                    }, {
+                                        labelStyle: 'font-weight: bold',
+                                        xtype: 'numberfield',
+                                        fieldLabel: this.cmtText,
+                                        width: 200,
+                                        name: 'credit-days',
+                                        mouseWheelEnabled: false,
+                                        hideTrigger: true,
+                                        keyNavEnabled: false,
+                                        margin: '0 0 0 9',
+                                        decimalPrecision: 2,
+                                        decimalSeparator: '.'
+                                    }]
+                            }]
+                    }, {
+                        xtype: 'fieldcontainer',
+                        layout: 'hbox',
+                        defaults: {
+                            labelStyle: 'font-weight: bold',
+                            labelWidth: this.lw(),
+                            labelAlign: 'top'
+                        },
+                        items: [{
+                                xtype: 'textfield',
+                                fieldLabel: this.concobText,
+                                width: '30%',
+                                name: 'contact-payment'
+                            }, {
+                                xtype: 'textfield',
+                                fieldLabel: this.pymcText,
+                                width: '30%',
+                                name: 'email',
+                                vtype: 'email',
+                                margin: '0 0 0 5'
+                            }, {
+                                xtype: 'fieldcontainer',
+                                layout: 'hbox',
+                                defaults: {
+                                    labelStyle: 'font-weight: bold',
+                                    labelWidth: this.lw(),
+                                    labelAlign: 'top'
+                                },
+                                items: [{
+                                        xtype: 'numberfield',
+                                        width: 130,
+                                        name: 'contact-phone',
+                                        fieldLabel: this.contphText,
+                                        mouseWheelEnabled: false,
+                                        hideTrigger: true,
+                                        keyNavEnabled: false,
+                                        margin: '0 0 0 5'
+                                    }]
+                            }]
+                    }, {
+                        xtype: 'textfield',
+                        width: '30%',
+                        name: 'authorized-by',
+                        fieldLabel: this.autoText
+                    }]
             }];
         this.buttons = [{
                 emptyText: this.costEmptyText,
                 xtype: 'numberfield',
-                width: 60,
+                width: '20%',
                 mouseWheelEnabled: false,
                 hideTrigger: true,
                 keyNavEnabled: false,
