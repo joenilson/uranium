@@ -16,6 +16,8 @@ Ext.define('Uranium.model.sales.EvalDailyResults', {
             return rec.editing ? v : rec.get('firstname') + ' ' + rec.get('surname')+ ' ' + rec.get('lastname');
         }
     }, {
+        name: 'description'
+    },{
         name: 'id_position'
     }, {
         name: 'position'
@@ -77,6 +79,6 @@ Ext.define('Uranium.model.sales.EvalDailyResults', {
 
     convertName: function(name) {
         var names = /([^\s+]+)(?:\s+(.*))?/.exec(name);
-        return names ? [names[0], names[1], names[2]||''] : ['', ''];
+        return names ? [names[0], names[1], names[2]||''] : ['', '', ''];
     }
 });

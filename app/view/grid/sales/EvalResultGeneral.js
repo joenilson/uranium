@@ -13,23 +13,33 @@
 Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
     extend: 'Ext.tree.Panel',
     requires: [
-        'Ext.grid.filters.Filters',
-        'Uranium.view.main.MainModel'
-        
+        'Ext.data.*',
+        'Ext.grid.*',
+        'Ext.tree.*',
+        'Uranium.view.form.field.Month',
+        'Uranium.view.main.MainModel',
+        'Uranium.store.sales.EvalResultGeneral',
+        'Uranium.model.sales.EvalDailyResults'
     ],
     xtype: 'sales-eval-global',
+    
+    model: 'Uranium.model.sales.EvalDailyResults',
+    
     viewModel: {
         type: 'main'
     },
     width: '100%',
 
     textTitle: 'Evaluation Results',
+    reserveScrollbar: true,
     
     useArrows: true,
     rootVisible: false,
     multiSelect: true,
+    singleExpand: false,
     
     controller: 'eval',
+    /*
     features: [{
         ftype : 'groupingsummary',
         groupHeaderTpl : '{name}',
@@ -49,13 +59,14 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
     plugins: [{
         ptype: 'gridfilters'
     }],
-
+    */
+   
     textToolAdd: 'First Eval',
     textToolEval: 'Survey',
     textToolClose: 'Close Window',
 
     textId: 'Id',
-    textName: 'Name (Filter)',
+    textName: 'Name',
     textRating: 'Rating',
     textHierachy: 'Hierachy',
     textDate: 'Last Eval Date',
@@ -106,13 +117,21 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
             }
         }];
 
-        this.tbar = ['->', {
+        this.tbar = ['->',{
+            xtype: 'monthfield',
+            format: 'F, Y',
+            submitFormat: 'm-Y',
+            name: 'date_eval',
+            width: 150,
+            id: 'date-eval'
+        }, {
             text: this.buttonRefresh,
             iconCls: 'button-refresh',
             scope: this,
             name: 'refresh',
             handler: function(){
-                me.getStore().reload();
+                me.callNodes();
+                //me.getStore().reload();
             }
         }, {
             text: this.buttonViewDetails,
@@ -123,77 +142,11 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
 
         this.columns = [{
             xtype: 'treecolumn', //this is so we know which column will show the tree
-            text: 'Task',
-            width: 200,
-            sortable: true,
-            dataIndex: 'task',
-            locked: true
-        }, {
-            //we must use the templateheader component so we can use a custom tpl
-            xtype: 'templatecolumn',
-            text: 'Duration',
-            width: 150,
-            sortable: true,
-            dataIndex: 'duration',
-            align: 'center',
-            //add in the custom tpl for the rows
-            tpl: Ext.create('Ext.XTemplate', '{duration:this.formatHours}', {
-                formatHours: function(v) {
-                    if (v < 1) {
-                        return Math.round(v * 60) + ' mins';
-                    } else if (Math.floor(v) !== v) {
-                        var min = v - Math.floor(v);
-                        return Math.floor(v) + 'h ' + Math.round(min * 60) + 'm';
-                    } else {
-                        return v + ' hour' + (v === 1 ? '' : 's');
-                    }
-                }
-            })
-        }, {
-            text: 'Assigned To',
-            width: 150,
-            dataIndex: 'user',
-            sortable: true
-        },{
-            xtype: 'rownumberer',
-            width: 40,
-            sortable: false,
-            locked: true
-        }, {
-            text: this.textId,
-            sortable: true,
-            dataIndex: 'employeeNo',
-            groupable: false,
-            width: 80,
-            locked: true
-        }, {
             text: this.textName,
+            width: 380,
             sortable: true,
-            dataIndex: 'name',
-            groupable: false,
-            width: 280,
-            layout: 'hbox',
+            dataIndex: 'description',
             locked: true
-        }, {
-            text: this.textRating,
-            width: 100,
-            sortable: true,
-            dataIndex: 'rating',
-            groupable: false,
-            xtype: 'widgetcolumn',
-            widget: {
-                xtype: 'sparklineline'
-            }
-        },
-        {
-            text: this.textDate,
-            dataIndex: 'eval_date',
-            xtype: 'datecolumn',
-            groupable: false,
-            width: 120,
-            filter: {
-
-            }
         }, {
             text: this.textPunctuality,
             dataIndex: 'punctuality',
@@ -212,35 +165,37 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
             text: this.textVisitCustomers,
             dataIndex: 'visit_customers',
             width: 100,
-            groupable: false
+            xtype: 'numbercolumn',
+            groupable: false,
+            format:'0'
         }, {
             text: this.textPosters,
             dataIndex: 'posters',
             width: 100,
-            groupable: false
+            xtype: 'numbercolumn',
+            groupable: false,
+            format:'0'
         }, {
             text: this.textProductExpired,
             dataIndex: 'product_expired',
             width: 100,
-            groupable: false
+            groupable: false,
+            xtype: 'numbercolumn',
+            format:'0'
         }, {
             text: this.textWrongOrder,
             dataIndex: 'wrong_order',
             width: 100,
-            groupable: false
+            groupable: false,
+            xtype: 'numbercolumn',
+            format:'0'
         }, {
             text: this.textContaminated,
             dataIndex: 'contaminated',
             width: 100,
-            groupable: false
-        }, {
-            text: this.textHierachy,
-            dataIndex: 'hierachy',
-            hidden: true,
-            hideable: false,
-            filter: {
-                type: 'list'
-            }
+            groupable: false,
+            xtype: 'numbercolumn',
+            format:'0'
         }, {
             text: this.textSales,
             width: 155,
@@ -253,23 +208,49 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
 
             }
         }];
-        var store = Ext.create('Uranium.store.sales.EvalResultGeneral');
-        this.store = store;
-        var d = new Date();
-        var n = d.getMonth();
-        store.load({
-            params: {
+    
+        //this.store = this.callNodes();
+        
+        this.callParent();
+    },
+
+    callNodes: function(){
+        var me = this;
+        var datePicker = Ext.getCmp('date-eval');
+        var values = datePicker.getSubmitData().date_eval.split('-');
+        Ext.Ajax.request({
+            url: '/api2/sap/Employee',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            jsonData: {
+                controller: 'sap/hcm/Employee',
+                method: ' hierarchy_w_parents_tree',
                 params: {
                     system: localStorage.getItem('systemId'),
                     locale: localStorage.getItem('user_lang'),
                     pernr: localStorage.getItem('employeeId'),
-                    month: (n+1)
+                    month: values[0],
+                    year: values[1]
                 }
-            }
-        });
-        this.callParent();
-    },
+            },
 
+            scope: this,
+            success: function(responseData){
+ 
+                var root = me.getRootNode();            
+                root.removeAll();
+                // Parse AJAX response to get tree structure
+                var ajaxData = Ext.JSON.decode(responseData.responseText);                        
+                var treeNodes = ajaxData.data.object;
+                
+                root.replaceChild(treeNodes);    // To add JSON response to tree
+            },
+            failure: function(error){
+                alert('Some error occured!');
+            }
+        }, me);
+    },
+    
     createWindow: function(){
         var window = Ext.create('Ext.window.Window',{
             //height: 400,
@@ -359,6 +340,10 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
         var me = this;
         var win = this.createWindow();
         var gridSel = this.getSelectionModel().getSelection();
+        
+        var datePicker = Ext.getCmp('date-eval');
+        var values = datePicker.getSubmitData().date_eval.split('-');
+        
         if(gridSel[0] === undefined){
             Ext.Msg.alert(this.textAlertTitle, this.textAlertMsg);
         }else{
@@ -366,7 +351,7 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
             win.setWidth(document.documentElement.clientWidth - 100);
             var records = gridSel[0].getData();
             win.setTitle(this.titleFirstEval+': '+records.firstname+' '+records.surname);
-            content = Ext.create('Uranium.view.grid.sales.EvalDailyDetails', { employeeId: records.employeeNo, employeeName: records.firstname+' '+records.surname });
+            content = Ext.create('Uranium.view.grid.sales.EvalDailyDetails', { employeeId: records.employeeNo, employeeName: records.firstname+' '+records.surname, monthValue: values[0], yearValue: values[1], viewMode: 'view' });
             win.add(content);
             win.show();
         }

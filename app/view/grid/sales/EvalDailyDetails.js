@@ -53,37 +53,41 @@ Ext.define('Uranium.view.grid.sales.EvalDailyDetails', {
     layout: 'border',
     employeeId: null,
     employeeName: '',
+    monthValue: '',
+    yearValue: '',
     multiColumnSort: true,
     flex: 1,
+    viewMode: '',
     initComponent: function(){
         var me = this;
-        this.tbar = ['->', {
-            text: this.buttonRefresh,
-            iconCls: 'button-refresh',
-            scope: this,
-            name: 'refresh',
-            handler: function(){
-                me.getStore().reload();
-            }
-        }, {
-            text: this.buttonRemoveEval,
-            iconCls: 'button-remove',
-            scope: this,
-            handler: this.removeEval
-        }, {
-            text: this.buttonFirstEval,
-            iconCls: 'button-add',
-            scope: this,
-            name: 'first',
-            handler: this.createEval
-        }, {
-            text: this.buttonRouteEvals,
-            iconCls: 'button-form-add',
-            scope: this,
-            name: 'eval',
-            handler: this.createEval
-        }];
-
+        if(this.viewMode !== 'view'){
+            this.tbar = ['->', {
+                text: this.buttonRefresh,
+                iconCls: 'button-refresh',
+                scope: this,
+                name: 'refresh',
+                handler: function(){
+                    me.getStore().reload();
+                }
+            }, {
+                text: this.buttonRemoveEval,
+                iconCls: 'button-remove',
+                scope: this,
+                handler: this.removeEval
+            }, {
+                text: this.buttonFirstEval,
+                iconCls: 'button-add',
+                scope: this,
+                name: 'first',
+                handler: this.createEval
+            }, {
+                text: this.buttonRouteEvals,
+                iconCls: 'button-form-add',
+                scope: this,
+                name: 'eval',
+                handler: this.createEval
+            }];
+        }
         this.columns = [{
             xtype: 'rownumberer',
             width: 40,
@@ -162,12 +166,13 @@ Ext.define('Uranium.view.grid.sales.EvalDailyDetails', {
         this.store = store;
         var d = new Date();
         var n = d.getMonth();
-        console.log(n);
+        var y = d.getFullYear();
         store.load({ params: {
                 params: {
                     eid: this.employeeId,
                     system: localStorage.getItem('systemId'),
-                    month: (n+1)
+                    month: (this.monthValue === '')?(n+1):this.monthValue,
+                    year: (this.yearValue === '')?y:this.yearValue
                 }
             }
         });
