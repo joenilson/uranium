@@ -12,7 +12,6 @@ Ext.define('Uranium.view.Systems', {
     listeners: {
         select: function(combo, record){
             localStorage.setItem("systemId",combo.getValue('id'));
-            localStorage.setItem("userSystem",combo.getValue('id'));
             var store = Ext.StoreMgr.get('navigation').getNodeById('all');
             store.removeAll();
             store.destroy();
