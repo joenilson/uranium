@@ -34,6 +34,7 @@ Ext.define('Uranium.view.main.MainController', {
             localStorage.removeItem('employeeFN');
             localStorage.removeItem('user_lang');
             localStorage.removeItem('systemId');
+            localStorage.removeItem('eval_admin');
             // Remove Main View
             this.getView().destroy();
             // Add the Login Window

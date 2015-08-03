@@ -25,6 +25,7 @@ Ext.define('Uranium.view.login.LoginController', {
                         localStorage.setItem("userId", obj.data.object.id);
                         localStorage.setItem("username", obj.data.object.username);
                         localStorage.setItem("user_lang", obj.data.object.user_lang);
+                        localStorage.setItem("eval_admin", (obj.data.object.eval_admin==="1")?true:false);
                         localStorage.setItem("employeeFN", obj.data.message);
                         // Remove Login Window
                         loginWindow.destroy();

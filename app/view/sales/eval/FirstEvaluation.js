@@ -31,6 +31,12 @@ Ext.define('Uranium.view.sales.eval.FirstEvaluation', {
     textAlertTitle: 'Record Exists!',
     textAlertMsg: 'A record exists with the same date!.',
 
+    textSuccessTitle: 'Success!',
+    textSuccessText: 'Record correctly saved.',
+
+    textFailureTitle: 'Failure!',
+    textFailureText: 'Record was not correctly saved.',
+
     //url: '/api/sales/firsteval',
     url: '/api2/lib/sap/hcm/Survey',
     paramsAsHash: true,
@@ -152,7 +158,8 @@ Ext.define('Uranium.view.sales.eval.FirstEvaluation', {
                     success: function(event, action) {
                         var window = Ext.WindowManager.getActive();
                         window.close();
-                        Ext.Msg.alert('Success', action.result.message);
+                        Ext.Msg.alert(me.textSuccessTitle, me.textSuccessText);
+                        gridStore.reload();
                     },
                     failure: function(form, action) {
                         Ext.Msg.alert('Failed', action.result.message);

@@ -18,7 +18,12 @@ Ext.define('Uranium.locale.es.view.sales.eval.FirstEvaluation',{
     textResetMsg: 'HA elegido limpiar el formulario, <br/> Desea continuar?',
 
     textAlertTitle: 'Dato Duplicado!',
-    textAlertMsg: 'Ya existe un dato con la misma fecha!.'
-
+    textAlertMsg: 'Ya existe un dato con la misma fecha!.',
+    
+    textSuccessTitle: 'Exito!',
+    textSuccessText: 'Registro correctamente agregado.',
+    
+    textFailureTitle: 'Ocurrio un error!',
+    textFailureText: 'El registro no se pudo grabar, intentelo nuevamente.'
 
 });

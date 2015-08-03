@@ -21,5 +21,7 @@ Ext.define('Uranium.locale.es.view.grid.sales.EvalDailyDetails', {
     textProductExpired: 'Producto<br>Vencido',
     textWrongOrder: 'Pedido<br>Incorrecto',
     textContaminated: 'Nevera<br>Contaminada',
-    buttonRefresh: 'Refrescar datos'
+    buttonRefresh: 'Refrescar datos',
+    textActionTitleDel: 'Eliminar Evaluación',
+    textActionMsgDel: 'Esta seguro de eliminar esta evaluacion?'
 });

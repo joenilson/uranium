@@ -262,7 +262,7 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
         var actionName = button.name;
         var me = this;
         var gridSel = this.getSelectionModel().getSelection();
-         if(gridSel[0] === undefined){
+        if(gridSel[0] === undefined){
             Ext.Msg.alert(this.textAlertTitle, this.textAlertMsg);
         }else{
             var records = gridSel[0].getData();
@@ -304,7 +304,6 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
                 if (btn === 'yes') {
                     Ext.Ajax.request({
                         //url: '/api/sales/assignment',
-
                         url: '/api2/lib/sap/hcm/Employee',
                         headers: { 'Content-Type': 'application/json' },
                         method: 'POST',
@@ -346,5 +345,4 @@ Ext.define('Uranium.view.grid.sales.EvalDaily', {
             win.show();
         }
     }
-
 });

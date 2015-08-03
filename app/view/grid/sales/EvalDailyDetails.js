@@ -15,7 +15,7 @@ Ext.define('Uranium.view.grid.sales.EvalDailyDetails', {
     buttonRouteEvals: 'Add Route Evals',
 
     textAlertTitle: 'No selection',
-    textAlertMsg: 'Please select one employee to evaluate...',
+    textAlertMsg: 'Please select one evaluation to process...',
 
     textId: 'Id',
     textSurveyType: 'Type Survey',
@@ -29,6 +29,10 @@ Ext.define('Uranium.view.grid.sales.EvalDailyDetails', {
     textWrongOrder: 'Wrong<br>Order',
     textContaminated: 'Contaminated<br>Fridge',
     buttonRefresh: 'Refresh List',
+    
+    textActionTitleDel: 'Remove Evaluation',
+    textActionMsgDel: 'Do you want to remove the employee evaluation?',
+    
     columnLines: true,
     viewModel: {
         type: 'main'
@@ -58,7 +62,9 @@ Ext.define('Uranium.view.grid.sales.EvalDailyDetails', {
     multiColumnSort: true,
     flex: 1,
     viewMode: '',
+    hiddenStatus: '',
     initComponent: function(){
+        this.hiddenStatus = (localStorage.getItem("eval_admin"))?false:true;
         var me = this;
         if(this.viewMode !== 'view'){
             this.tbar = ['->', {
@@ -73,7 +79,9 @@ Ext.define('Uranium.view.grid.sales.EvalDailyDetails', {
                 text: this.buttonRemoveEval,
                 iconCls: 'button-remove',
                 scope: this,
-                handler: this.removeEval
+                name: 'remove',
+                handler: this.removeEval,
+                hidden: this.hiddenStatus
             }, {
                 text: this.buttonFirstEval,
                 iconCls: 'button-add',
@@ -111,7 +119,6 @@ Ext.define('Uranium.view.grid.sales.EvalDailyDetails', {
         {
             text: this.textDate,
             dataIndex: 'eval_date',
-            //xtype: 'datecolumn',
             locked: true,
             groupable: false,
             width: 120,
@@ -204,6 +211,49 @@ Ext.define('Uranium.view.grid.sales.EvalDailyDetails', {
         }
         win.add(content);
         win.show();
+    },
+    
+    removeEval: function(button, event) {
+        var actionName = button.name;
+        var me = this;
+        var gridSel = this.getSelectionModel().getSelection();
+        if(gridSel[0] === undefined){
+            Ext.Msg.alert(this.textAlertTitle, this.textAlertMsg);
+        }else{
+            var records = gridSel[0].getData();
+            Ext.Msg.show({
+                title: this.textActionTitleDel,
+                message: this.textActionMsgDel,
+                buttons: Ext.Msg.YESNO,
+                icon: Ext.Msg.QUESTION,
+                fn: function(btn) {
+                    if (btn === 'yes') {
+                        Ext.Ajax.request({
+                            //url: '/api/sales/assignment',
+                            url: '/api2/lib/sap/hcm/Survey',
+                            headers: { 'Content-Type': 'application/json' },
+                            method: 'POST',
+                            jsonData: {
+                                controller: 'sap/hcm/Survey',
+                                method: 'remove',
+                                params: {
+                                    eid: records.employeeId,
+                                    system: localStorage.getItem('systemId'),
+                                    evaldate: records.eval_date,
+                                    type_survey: records.type_survey
+                                }
+                            },
+                            success: function(response){
+                                var text = response.responseText;
+                                me.getStore().reload();
+                            }
+                        });
+                    } else if (btn === 'no') {
+                        this.close();
+                    }
+                }
+            });
+        }
     }
 
 });
