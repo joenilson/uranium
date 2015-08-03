@@ -139,7 +139,8 @@ Ext.define('Uranium.view.sales.eval.FirstEvaluation', {
                 form.submit({
                     params: {
                         params: {
-                        system: localStorage.getItem('userSystem'),
+                        /*system: localStorage.getItem('userSystem'),*/
+                        system: localStorage.getItem('systemId'),
                         eid: this.employeeNo,
                         parentEid: localStorage.getItem('employeeId'),
                         evaldate: values.evaldate,

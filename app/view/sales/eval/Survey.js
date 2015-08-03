@@ -200,7 +200,8 @@ Ext.define('Uranium.view.sales.eval.Survey', {
                         params: {
                             eid: this.employeeNo,
                             parentEid: localStorage.getItem('employeeId'),
-                            system: localStorage.getItem('userSystem'),
+                            /*system: localStorage.getItem('userSystem'),*/
+                            system: localStorage.getItem('systemId'),
                             client_code: values.client_code,
                             evaldate: values.evaldate,
                             type_survey: "survey",
