@@ -88,7 +88,7 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
     buttonRefresh: 'Refresh List',
     buttonAssign: 'Assign Employee',
     buttonRemove: 'Remove Assignment',
-
+    buttonExport: 'Export to Excel',
     textAlertTitle: 'No selection',
     textAlertMsg: 'Please select one employee to process...',
 
@@ -96,6 +96,9 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
     textActionTitleDel: 'Remove Assignment',
     textActionMsgAdd: 'Do you want to assign this employee to you?',
     textActionMsgDel: 'Do you want to remove the employee assignment?',
+    
+    textLoadingMask: 'Loading, please wait...',
+    textAjaxFailure: 'Please try again, the server was busy...',
 
     employeeId: null,
 
@@ -138,6 +141,13 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
             iconCls: 'button-view-list',
             scope: this,
             handler: this.viewDetails
+        }, {
+            text: this.buttonExport,
+            iconCls: 'button-save',
+            scope: this,
+            handler: function(b, e) {
+                console.log(b);
+            }
         }];
 
         this.columns = [{
@@ -218,6 +228,9 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
         var me = this;
         var datePicker = Ext.getCmp('date-eval');
         var values = datePicker.getSubmitData().date_eval.split('-');
+
+        me.mask(me.textLoadingMask);
+
         Ext.Ajax.request({
             url: '/api2/sap/Employee',
             method: 'POST',
@@ -236,7 +249,7 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
 
             scope: this,
             success: function(responseData){
- 
+                me.unmask();
                 var root = me.getRootNode();            
                 root.removeAll();
                 // Parse AJAX response to get tree structure
@@ -246,7 +259,8 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
                 root.replaceChild(treeNodes);    // To add JSON response to tree
             },
             failure: function(error){
-                alert('Some error occured!');
+                me.unmask();
+                Ext.Msg.alert(me.textAjaxFailure);
             }
         }, me);
     },

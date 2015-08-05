@@ -1,5 +1,5 @@
-Ext.define('Uranium.locale.es.view.grid.sales.EvalResult',{
-    override: 'Uranium.view.grid.sales.EvalResult',
+Ext.define('Uranium.locale.es.view.grid.sales.EvalResultGeneral',{
+    override: 'Uranium.view.grid.sales.EvalResultGeneral',
     textDateBirth: 'Fecha Nac',
     textDateJoin: 'Fecha Ingreso',
     textNoticePeriod: 'Periodo<br>Notificado',
@@ -29,6 +29,7 @@ Ext.define('Uranium.locale.es.view.grid.sales.EvalResult',{
     textWrongOrder: 'Pedido<br>Incorrecto',
     textContaminated: 'Nevera<br>Contaminada',
     textSales: 'Prom. Sales',
+    buttonExport: 'Exportar a Excel',
     buttonRefresh: 'Recargar Listado',
     buttonAssign: 'Asignar Empleado',
     buttonRemove: 'Eliminar Asignación',
@@ -43,6 +44,9 @@ Ext.define('Uranium.locale.es.view.grid.sales.EvalResult',{
     textActionTitleAdd: 'Asignar Empleado',
     textActionTitleDel: 'Eliminar Asignación',
     textActionMsgAdd: 'Desea asignarse este empleado?',
-    textActionMsgDel: 'Desea eliminar esta asignación?'
+    textActionMsgDel: 'Desea eliminar esta asignación?',
+    
+    textLoadingMask: 'Cargando datos, por favor espere...',
+    textAjaxFailure: 'Intentelo nuevamente, el servidor tardó en responder...'
 
 });

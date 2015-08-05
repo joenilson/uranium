@@ -17,7 +17,7 @@ Ext.define('Uranium.store.sales.EvalDaily', {
         url: '/api2/sap/Employee',
         extraParams: {
             controller: 'sap/hcm/Employee',
-            method: 'hierarchy'
+            method: 'hierarchy_override'
         },
         reader: {
             type: 'json',
