@@ -39,27 +39,6 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
     singleExpand: false,
     
     controller: 'eval',
-    /*
-    features: [{
-        ftype : 'groupingsummary',
-        groupHeaderTpl : '{name}',
-        hideGroupedHeader : false,
-        enableGroupingMenu : false
-    }, {
-        ftype: 'summary',
-        dock: 'bottom'
-    }],
-
-    selType: 'checkboxmodel',
-
-    viewConfig: {
-        stripeRows: true
-    },
-
-    plugins: [{
-        ptype: 'gridfilters'
-    }],
-    */
    
     textToolAdd: 'First Eval',
     textToolEval: 'Survey',
@@ -157,6 +136,13 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
             sortable: true,
             dataIndex: 'description',
             locked: true
+        }, {
+            text: this.textRating,
+            dataIndex: 'average',
+            groupable: false,
+            width: 100,
+            xtype: 'numbercolumn',
+            format:'0'
         }, {
             text: this.textPunctuality,
             dataIndex: 'punctuality',
@@ -370,5 +356,4 @@ Ext.define('Uranium.view.grid.sales.EvalResultGeneral', {
             win.show();
         }
     }
-
 });

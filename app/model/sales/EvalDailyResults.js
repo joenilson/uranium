@@ -48,6 +48,14 @@ Ext.define('Uranium.model.sales.EvalDailyResults', {
     },{
         name: 'contaminated',
         mapping: 'summary.contaminated_fridge'
+    },{
+        name: 'average',
+        convert: function(v, rec) {
+            var sum = 0;
+            sum = rec.get('punctuality') + rec.get('appearance') + rec.get('visit_customers') + rec.get('posters') + rec.get('product_expired') + rec.get('wrong_order') + rec.get('contaminated');
+            var avg = sum/7;
+            return Math.round(avg);
+        }
     }],
     idField: 'employeeNo',
     idProperty: 'employeeNo',
