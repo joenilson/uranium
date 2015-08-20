@@ -28,6 +28,8 @@ Ext.define('Uranium.model.sales.EvalDailyResults', {
     }, {
         name: 'work'
     },{
+        name: 'cargo'
+    },{
         name: 'punctuality',
         mapping: 'summary.punctuality'
     },{

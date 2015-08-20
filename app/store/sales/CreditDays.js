@@ -19,13 +19,12 @@ Ext.define('Uranium.store.sales.CreditDays', {
     autoLoad: true,
     fields: ['abbr', 'name'],
     data: [
-        {"abbr": "01", "name": "1"},
-        {"abbr": "MT", "name": "7"},
-        {"abbr": "CD", "name": "15"},
-        {"abbr": "SM", "name": "30"},
-        {"abbr": "OC", "name": "60"},
-        {"abbr": "00", "name": "90"}
+        {"abbr": "1", "name": "1"},
+        {"abbr": "7", "name": "7"},
+        {"abbr": "15", "name": "15"},
+        {"abbr": "30", "name": "30"},
+        {"abbr": "60", "name": "60"},
+        {"abbr": "90", "name": "90"}
     ]
-
 });
 

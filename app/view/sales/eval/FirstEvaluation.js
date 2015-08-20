@@ -37,7 +37,6 @@ Ext.define('Uranium.view.sales.eval.FirstEvaluation', {
     textFailureTitle: 'Failure!',
     textFailureText: 'Record was not correctly saved.',
 
-    //url: '/api/sales/firsteval',
     url: '/api2/lib/sap/hcm/Survey',
     paramsAsHash: true,
     employeeNo: null,
@@ -51,12 +50,11 @@ Ext.define('Uranium.view.sales.eval.FirstEvaluation', {
     initComponent: function(){
 
         var TodayValue = new Date();
-        var minDateValue = new Date(TodayValue.getTime() - 2 * 24 * 60 * 60 * 1000);
+        var minDateValue = new Date(TodayValue.getTime() - 7 * 24 * 60 * 60 * 1000);
         this.items = [{
             xtype: 'datefield',
             name: 'evaldate',
             fieldLabel: this.textDate,
-            //margin: '5 5 5 0',
             allowBlank: false,
             value: new Date(),
             format: 'd-m-Y',
@@ -86,7 +84,6 @@ Ext.define('Uranium.view.sales.eval.FirstEvaluation', {
                 boxLabel: this.textCBAbsent
             }]
           },{
-            //xtype: 'radiogroup',
             xtype: 'slider',
             fieldLabel: this.textAppearance,
             name: 'appearance',
@@ -121,10 +118,8 @@ Ext.define('Uranium.view.sales.eval.FirstEvaluation', {
             fn: function(btn) {
                 if (btn === 'yes') {
                     form.reset();
-                    console.log('Yes pressed');
                 } else if (btn === 'no') {
-                    console.log('No pressed');
-                    //this.close();
+
                 }
             }
         });

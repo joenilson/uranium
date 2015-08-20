@@ -14,12 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.define('Uranium.view.sales.sales.delivery', {
+/**
+ * Description of dispatchgoods
+ *
+ * @author Joe Nilson <joenilson@gmail.com>
+ */
+Ext.define('Uranium.view.logistics.warehouse.dispatchgoods', {
     extend: 'Ext.panel.Panel',
-    xtype: 'sales-delivery',
-    id: 'sales-delivery',
-    titleText: 'Sales Delivery',
-    initComponent: function(){
+    xtype: 'logistics-warehouse-dispatch-goods',
+    name: '',
+    titleText: 'Dispatching Goods',
+    initComponent: function () {
         var me = this;
         me.title = me.titleText;
         this.tools = [{

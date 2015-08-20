@@ -14,5 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-
+Ext.define('Uranium.view.sales.sales.invoice', {
+    extend: 'Ext.panel.Panel',
+    xtype: 'sales-invoice',
+    id: 'sales-order',
+    titleText: 'Invoices',
+    initComponent: function(){
+        var me = this;
+        me.title = me.titleText;
+        this.tools = [{
+            type: 'close',
+            scope: this,
+            tooltip: this.textToolClose,
+            handler: function(){
+                me.destroy();
+                var TreePanel = Ext.getCmp('navigation-tree');
+                TreePanel.getSelectionModel().clearSelections();
+                Ext.defer(function(){
+                    Uranium.getApplication().redirectTo(Uranium.getApplication().getDefaultToken());
+                },200);
+            }
+        }];
+        this.callParent();
+    }
+});

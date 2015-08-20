@@ -47,7 +47,7 @@ Ext.define('Uranium.view.sales.eval.Survey', {
     jsonSubmit: true,
     initComponent: function(){
         var TodayValue = new Date();
-        var minDateValue = new Date(TodayValue.getTime() - 2 * 24 * 60 * 60 * 1000);
+        var minDateValue = new Date(TodayValue.getTime() - 7 * 24 * 60 * 60 * 1000);
         this.items = [{
             xtype: 'datefield',
             name: 'evaldate',
@@ -190,11 +190,11 @@ Ext.define('Uranium.view.sales.eval.Survey', {
             var values = form.getValues();
             var gridStore = me.gridOrigin.getStore();
             var match = gridStore.findBy(function(record,id) {
-                if(record.get('eval_date')==values.evaldate && record.get('type_survey')=='survey' && record.get('customerId')==values.client_code) {
+                if(record.get('eval_date')===values.evaldate && record.get('type_survey')==='survey' && record.get('customerId')===values.client_code) {
                     return true;
                 }
             });
-            if(match == -1){
+            if(match === -1){
                 form.submit({
                     params: {
                         params: {

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2015 Niurka Rodriguez <nrodriguezg@grupoism.com.do>
+ * Copyright (C) 2015 Joe Nilson <joenilson@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.define('Uranium.view.sales.basic.Customer', {
+Ext.define('Uranium.view.logistics.basic.Suppliers', {
     extend: 'Ext.form.Panel',
-    xtype: 'sales-customer',
+    xtype: 'logistics-basic-suppliers',
     frame: false,
     autoScroll: true,
+    titleText: 'Suppliers',
     titleBasicDataText: 'Basic Data',
     titleSalesDataText: 'Sales Data',
     titleCreditControlText: 'Credit Control',
@@ -45,9 +46,31 @@ Ext.define('Uranium.view.sales.basic.Customer', {
     searButtonText: 'Search',
     cleaButtonText: 'Clear',
     savButtonText: 'Save',
+    textYes: 'Yes',
+    textNo: 'No',
+    textSuccessText: 'Supplier data saved ',
+    textSuccessTitle: 'Success',
+    textWarningTitle: 'Warning',
+    textWarningText: 'Ops, our umpalumpas aren\'t working, please try again',
     bodyPadding: 10,
     labelWidthValue: 140,
+    gridOrigin: '',
     initComponent: function () {
+        var me = this;
+        this.title = this.titleText;
+        this.tools = [{
+            type: 'close',
+            scope: this,
+            tooltip: this.textToolClose,
+            handler: function(){
+                me.destroy();
+                var TreePanel = Ext.getCmp('navigation-tree');
+                TreePanel.getSelectionModel().clearSelections();
+                Ext.defer(function(){
+                    Uranium.getApplication().redirectTo(Uranium.getApplication().getDefaultToken());
+                },200);
+            }
+        }];
         this.items = [{
                 xtype: 'fieldset',
                 title: this.titleBasicDataText,
@@ -164,49 +187,9 @@ Ext.define('Uranium.view.sales.basic.Customer', {
             }, {
                 xtype: 'fieldset',
                 title: this.titleSalesDataText,
+                style: 'padding: 10px',
                 items: [
                     {
-                        xtype: 'fieldcontainer',
-                        layout: 'hbox',
-                        defaults: {
-                            labelStyle: 'font-weight: bold',
-                            labelWidth: 140,
-                            labelAlign: 'top'
-                        },
-                        items: [{
-                                xtype: 'business-type',
-                                width: '40%',
-                                allowBlank: false
-                            }, {
-                                xtype: 'fieldcontainer',
-                                fieldLabel: this.calText,
-                                margin: '0 0 0 5',
-                                width: '280',
-                                layout: 'hbox',
-                                items: [
-                                    {
-                                        xtype: 'radiofield',
-                                        boxLabel: 'A',
-                                        inputValue: 'a',
-                                        name: 'calificacion'
-                                    }, {
-                                        xtype: 'splitter'
-                                    }, {
-                                        xtype: 'radiofield',
-                                        boxLabel: 'B',
-                                        inputValue: 'b',
-                                        name: 'calificacion'
-                                    }, {
-                                        xtype: 'splitter'
-                                    }, {
-                                        xtype: 'radiofield',
-                                        boxLabel: 'C',
-                                        inputValue: 'c',
-                                        name: 'calificacion'
-                                    }
-                                ]
-                            }]
-                    }, {
                         xtype: 'fieldcontainer',
                         layout: 'hbox',
                         defaults: {
@@ -224,35 +207,8 @@ Ext.define('Uranium.view.sales.basic.Customer', {
                             }, {
                                 xtype: 'customer-status',
                                 margin: '0 0 0 5',
-                                width: '40%',
+                                width: '20%',
                                 allowBlank: false
-                            }]
-                    }, {
-                        xtype: 'fieldcontainer',
-                        layout: 'hbox',
-                        defaults: {
-                            labelStyle: 'font-weight: bold',
-                            labelWidth: 140,
-                            labelAlign: 'top'
-                        },
-                        items: [{
-                                xtype: 'numberfield',
-                                width: '30%',
-                                name: 'mesa',
-                                fieldLabel: this.tblText,
-                                mouseWheelEnabled: false,
-                                hideTrigger: true,
-                                keyNavEnabled: false,
-                                allowBlank: false
-                            }, {
-                                xtype: 'numberfield',
-                                width: '30%',
-                                name: 'ruta',
-                                fieldLabel: this.rtText,
-                                mouseWheelEnabled: false,
-                                hideTrigger: true,
-                                keyNavEnabled: false,
-                                margin: '0 0 0 5'
                             }]
                     }, {
                         xtype: 'fieldcontainer',
@@ -281,6 +237,7 @@ Ext.define('Uranium.view.sales.basic.Customer', {
             }, {
                 xtype: 'fieldset',
                 title: this.titleCreditControlText,
+                style: 'padding: 10px',
                 defaults: {
                     labelStyle: 'font-weight: bold',
                     labelAlign: 'top',
@@ -291,21 +248,21 @@ Ext.define('Uranium.view.sales.basic.Customer', {
                         layout: 'hbox',
                         items: [{
                                 labelStyle: 'font-weight: bold',
-                                labelWidth: 60,
+                                labelWidth: 140,
                                 xtype: 'fieldcontainer',
                                 fieldLabel: this.credText,
                                 layout: 'hbox',
                                 items: [{
                                         xtype: 'radiofield',
-                                        name: 'diascredito',
-                                        boxLabel: 'Yes',
+                                        name: 'credit',
+                                        boxLabel: this.textYes,
                                         inputValue: 'y'
                                     }, {
                                         xtype: 'splitter'
                                     }, {
                                         xtype: 'radiofield',
-                                        name: 'diascredito',
-                                        boxLabel: 'No',
+                                        name: 'credit',
+                                        boxLabel: this.textNo,
                                         inputValue: 'n',
                                         margin: '0 10 0 0'
                                     }, {
@@ -324,8 +281,9 @@ Ext.define('Uranium.view.sales.basic.Customer', {
                                         labelStyle: 'font-weight: bold',
                                         xtype: 'numberfield',
                                         fieldLabel: this.cmtText,
-                                        width: 200,
-                                        name: 'credit-days',
+                                        labelWidth: 140,
+                                        width: 240,
+                                        name: 'creditamount',
                                         mouseWheelEnabled: false,
                                         hideTrigger: true,
                                         keyNavEnabled: false,
@@ -351,7 +309,7 @@ Ext.define('Uranium.view.sales.basic.Customer', {
                                 xtype: 'textfield',
                                 fieldLabel: this.pymcText,
                                 width: '30%',
-                                name: 'email',
+                                name: 'email-payment',
                                 vtype: 'email',
                                 margin: '0 0 0 5'
                             }, {
@@ -373,39 +331,153 @@ Ext.define('Uranium.view.sales.basic.Customer', {
                                         margin: '0 0 0 5'
                                     }]
                             }]
-                    }, {
-                        xtype: 'textfield',
-                        width: '30%',
-                        name: 'authorized-by',
-                        fieldLabel: this.autoText
                     }]
             }];
         this.buttons = [{
-                emptyText: this.costEmptyText,
-                xtype: 'numberfield',
+                xtype:  'customer-search',
                 width: '20%',
-                mouseWheelEnabled: false,
-                hideTrigger: true,
-                keyNavEnabled: false,
+                id: 'search-supplier',
                 listeners: {
                     specialkey: function (e, t, opts) {
                         if (t.getKey() === t.ENTER) {
                             console.log('enter pressed');
+                            me.searchSupplier();
                         }
                     }
                 }
             }, {
-                text: this.searButtonText
+                text: this.searButtonText,
+                scope: this,
+                handler: this.searchSupplier
             }, '->', {
                 text: this.cleaButtonText
             }, {
                 text: this.savButtonText,
                 disabled: true,
-                formBind: true
+                formBind: true,
+                scope: this,
+                handler: this.saveSupplier
             }];
         this.callParent();
     },
     lw: function () {
         return 140;
+    },
+    searchSupplier: function(){
+        var me = this;
+        var searchValue = Ext.getCmp('search-supplier');
+        if(searchValue.value === undefined || searchValue.value === ''){
+            /*
+             * advanced_list_regex(
+                {
+                system: localStorage.getItem('systemId'),
+                keyfrases: [
+                [ "real_name", "^res.*$" ]
+                ],
+                keytypes: ["SUP"]
+                },
+             */
+        }else{
+            /*
+             * advanced_list_regex(
+                {
+                system: "1000",
+                keyfrases: [
+                [ "legal_name", "^jose.*$" ],
+                [ "real_name", "^.*res.*$" ]
+                ],
+                keytypes: []
+                },
+             */
+        }
+        Ext.Ajax.request({
+            url: '/api2/lib/Customer',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            jsonData: {
+                controller: 'Customer',
+                method: ' advanced_list',
+                params: {
+                    system: localStorage.getItem('systemId'),
+                    keyfrases: [],
+                    keytypes: ["SUP"]
+                }
+            },
+
+            scope: this,
+            success: function(responseData){
+                
+                //me.unmask();
+                //var root = me.getRootNode();            
+                //root.removeAll();
+                // Parse AJAX response to get tree structure
+                //var ajaxData = Ext.JSON.decode(responseData.responseText);                        
+                //var treeNodes = ajaxData.data.object;
+                
+                //root.replaceChild(treeNodes);    // To add JSON response to tree
+            },
+            failure: function(error){
+                //me.unmask();
+                Ext.Msg.alert(me.textAjaxFailure);
+            }
+        }, me);
+        console.log(searchValue.value);
+    },
+    saveSupplier: function(){
+        var me = this;
+        var form = me.getForm();
+        var dt = new Date();
+        var actualDate = Ext.Date.format(dt, 'Y-m-d');
+        if(form.isValid()){
+            var values = form.getValues();
+            console.log(values);
+            
+            Ext.Ajax.request({
+                method: 'POST',
+                url: '/api2/lib/Customer',
+                headers: { 'Content-Type': 'application/json' },
+                jsonData: {
+                    controller: 'Customer',
+                    method: 'insert',
+                    params: {
+                       system: localStorage.getItem('systemId'),
+                        legal_name: values.razonsocial,
+                        real_name: values.nombre,
+                        addresses: [{
+                            id_address: 0,
+                            address: values.direccion,
+                            location: "1001",
+                            phone: values.telefono,
+                            email: values.email,
+                            contact: values.contacto,
+                            default: "true"
+                        }],
+                        accounting: [{
+                            id_accounting: 0,
+                            phone: values.telefono,
+                            email: values.email,
+                            contact: values.contacto,
+                            default: "true"
+                        }],
+                        nif_type: values.nif,
+                        country: "DO",
+                        currency: "DOP",
+                        banking: "",
+                        type: "SUP",
+                        username: localStorage.getItem('username'),
+                        userdate: actualDate
+                   }
+                },
+                
+                success: function(response){
+                    console.log(response.data.object);
+                    form.reset();
+                    Ext.Msg.alert(me.textSuccessTitle, me.textSuccessText);
+                },
+                failure: function(response) {
+                    Ext.Msg.alert(me.textWarningTitle, me.textWarningText);
+                } 
+            });
+        }
     }
 });

@@ -1,4 +1,4 @@
-Ext.define('Uranium.locale.es.view.grid.sales.EvalResultGeneral',{
+Ext.define('Uranium.locale.es.view.grid.sales.EvalResultGeneral', {
     override: 'Uranium.view.grid.sales.EvalResultGeneral',
     textDateBirth: 'Fecha Nac',
     textDateJoin: 'Fecha Ingreso',
@@ -41,12 +41,28 @@ Ext.define('Uranium.locale.es.view.grid.sales.EvalResultGeneral',{
 
     textAlertTitle: 'Sin selección',
     textAlertMsg: 'Por favor seleccione un empleado para procesar...',
+    textAlertEmptyMsg: 'No hay datos para procesar.',
     textActionTitleAdd: 'Asignar Empleado',
     textActionTitleDel: 'Eliminar Asignación',
     textActionMsgAdd: 'Desea asignarse este empleado?',
     textActionMsgDel: 'Desea eliminar esta asignación?',
     
     textLoadingMask: 'Cargando datos, por favor espere...',
-    textAjaxFailure: 'Intentelo nuevamente, el servidor tardó en responder...'
-
+    textAjaxFailure: 'Intentelo nuevamente, el servidor tardó en responder...',
+    
+    allowedIndex: [{
+        "employeeNo":"Codigo Empleado",
+        "cargo":"Posición",
+        "description":"Nombre Completo",
+        "average":"Promedio",
+        "punctuality":"Puntualidad",
+        "appearance":"Apariencia",
+        "visit_customers":"Visita Clientes",
+        "posters":"Realiza Afichaje",
+        "product_expired":"Producto Vencido",
+        "wrong_order":"Pedido Incorrecto",
+        "contaminated_fridge":"Nevera Contaminada",
+        "summary":"null",
+        "children":"null"
+    }]
 });

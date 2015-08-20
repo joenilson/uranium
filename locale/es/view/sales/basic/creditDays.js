@@ -16,7 +16,7 @@
  */
 Ext.define('Uranium.locale.es.view.sales.basic.creditDays', {
     override: 'Uranium.view.sales.basic.creditDays',
-    daycrCombText: 'Credit Days'
+    daycrCombText: 'Dias de Credito'
 });
 
 

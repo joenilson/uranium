@@ -27,6 +27,5 @@ Ext.define('Uranium.view.sales.basic.creditDays', {
         this.fieldLabel = this.daycrCombText;
         this.callParent();
     }
-
 });
 

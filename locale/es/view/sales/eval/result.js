@@ -33,7 +33,6 @@ Ext.define('Uranium.locale.es.view.sales.eval.result',{
     textToolEval: 'Evaluaci&oacute;n de Ruta',
     textToolClose: 'Cerrar Ventana',
 
-    textTitle: 'Resultados de Evaluacion',
     textId: 'Id',
     textName: 'Nombre (Filtrar)',
     textRating: 'Puntuación',
