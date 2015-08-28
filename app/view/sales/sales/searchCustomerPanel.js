@@ -14,27 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.define('Uranium.view.sales.sales.orderTab', {
-    extend: 'Ext.tab.Panel',
-    xtype: 'ordertab',
-    orderTabText: 'Products',
-    orderObsText: 'Observation',
-    orderOthersText: 'Others',
-    width: '100%',
+/**
+ * Description of searchCustomerPanel
+ *
+ * @author Joe Nilson <joenilson@gmail.com>
+ */
+Ext.define('Uranium.view.sales.sales.searchCustomerPanel', {
+    extend: 'Ext.panel.Panel',
+    xtype: 'search-customer-panel',
+    layout: 'vbox',
     requires: [
-        'Uranium.view.sales.sales.orderGrid'
+        'Uranium.view.sales.sales.OrderController',
+        'Uranium.view.sales.sales.searchCustomerForm',
+        'Uranium.view.sales.sales.searchCustomerGrid'
     ],
-    initComponent: function(){
+    
+    controller: 'salesorder',
+    
+    initComponent: function () {
+        var me = this;
         this.items = [{
-            xtype: 'ordergrid'
+            xtype: 'search-customer-form'
         },{
-            title: this.orderObsText,
-            html: 'One'
-        },{
-            title: this.orderOthersText,
-            html: 'One'
+            xtype: 'search-customer-grid'
         }];
         this.callParent();
     }
-    
 });

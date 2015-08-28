@@ -14,27 +14,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.define('Uranium.view.sales.sales.orderTab', {
-    extend: 'Ext.tab.Panel',
-    xtype: 'ordertab',
-    orderTabText: 'Products',
-    orderObsText: 'Observation',
-    orderOthersText: 'Others',
-    width: '100%',
-    requires: [
-        'Uranium.view.sales.sales.orderGrid'
-    ],
-    initComponent: function(){
-        this.items = [{
-            xtype: 'ordergrid'
-        },{
-            title: this.orderObsText,
-            html: 'One'
-        },{
-            title: this.orderOthersText,
-            html: 'One'
-        }];
-        this.callParent();
-    }
+Ext.define('Uranium.locale.es.view.sales.sales.order',{
+    override: 'Uranium.view.sales.sales.order',
+
+    titleText: 'Pedido de Venta',
     
+    buttonRemoveSelectedText: 'Eliminar seleccionado',
+    buttonOpenOrder: 'Abrir pedido',
+    buttonClearOrder: 'Limpiar datos',
+    buttonSaveOrder: 'Guardar',
+    
+    openOrderText: 'numero de pedido'
+
 });

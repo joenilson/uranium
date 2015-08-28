@@ -34,8 +34,11 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
     msgWarningProductTitle: 'Warning',
     msgWarningProductText: 'Please fill the required fields.<br>Product and Quantity.',
     
+    searchCustomerTitle: 'Search Customer',
+    
     bodyPadding: 10,
     customerCodeField: undefined,
+    searchCustomerButton: undefined,
     customerNameField: undefined,
     orderDateField: undefined,
     deliveryDateField: undefined,
@@ -205,7 +208,14 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
                 },
                 items: [
                     this.customerCodeField,
-                    this.customerNameField
+                    this.customerNameField, 
+                    {
+                        icon: null,
+                        glyph: '128269',
+                        xtype: 'button',
+                        scope: this,
+                        handler: this.searchCustomer
+                    }
                 ]
             },{
                 xtype: 'fieldcontainer',
@@ -234,6 +244,29 @@ Ext.define('Uranium.view.sales.sales.orderForm', {
         }];
         
         this.callParent();
-    }
+    },
     
+    createWindow: function(){
+        var window = Ext.create('Ext.window.Window',{
+            //height: 400,
+            width: 600,
+            autoScroll: true,
+            layout: 'fit',
+            //bodyPadding: 10,
+            modal: true,
+            closable: true
+        });
+        return window;
+    },
+    
+    searchCustomer: function(){
+        var me = this;
+        var win = this.createWindow();
+        var content;
+        win.setHeight(400);
+        win.setTitle(this.searchCustomerTitle);
+        content = Ext.create('Uranium.view.sales.sales.searchCustomerPanel');
+        win.add(content);
+        win.show();
+    }
 });

@@ -29,12 +29,25 @@ Ext.define('Uranium.view.sales.sales.OrderController',{
    removeSelected: function(){
        
    },
+   
    clearData: function(){
        
    },
+   
    saveData: function(){
        
    },
+   
+   searchCustomer: function(){
+       console.log('BEGIN');
+       console.log(this);
+       var form = Ext.getCmp('search-customer-form').getForm();
+       console.log(form);
+       var values = form.getValues();
+       console.log(values);
+       console.log('END');
+   },
+   
    init: function(){
        
    }

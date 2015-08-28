@@ -14,27 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-Ext.define('Uranium.view.sales.sales.orderTab', {
-    extend: 'Ext.tab.Panel',
-    xtype: 'ordertab',
-    orderTabText: 'Products',
-    orderObsText: 'Observation',
-    orderOthersText: 'Others',
-    width: '100%',
-    requires: [
-        'Uranium.view.sales.sales.orderGrid'
-    ],
-    initComponent: function(){
-        this.items = [{
-            xtype: 'ordergrid'
-        },{
-            title: this.orderObsText,
-            html: 'One'
-        },{
-            title: this.orderOthersText,
-            html: 'One'
-        }];
+/**
+ * Description of searchCustomerGrid
+ *
+ * @author Joe Nilson <joenilson@gmail.com>
+ */
+Ext.define('Uranium.view.sales.sales.searchCustomerGrid', {
+    extend: 'Ext.grid.Panel',
+    xtype: 'search-customer-grid',
+    name: '',
+    minHeight: 300,
+    
+    titleText: 'Search Customer Grid',
+    initComponent: function () {
+        var me = this;
+        me.title = me.titleText;
         this.callParent();
     }
-    
 });

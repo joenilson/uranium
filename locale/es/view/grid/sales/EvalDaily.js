@@ -46,6 +46,8 @@ Ext.define('Uranium.locale.es.view.grid.sales.EvalDaily',{
     textActionTitleAdd: 'Asignar Empleado',
     textActionTitleDel: 'Eliminar Asignación',
     textActionMsgAdd: 'Desea asignarse este empleado?',
-    textActionMsgDel: 'Desea eliminar esta asignación?'
+    textActionMsgDel: 'Desea eliminar esta asignación?',
+    
+    searchCustomerTitle: 'Buscar Cliente'
 
 });
